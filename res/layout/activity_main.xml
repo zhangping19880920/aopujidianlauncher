@@ -3,12 +3,165 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout 
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world"
-        tools:context=".MainActivity" />
+		android:layout_centerInParent="true"
+		android:gravity="center"
+		android:orientation="vertical"
+        >
+        
+        <!-- 第一行 -->
+        <LinearLayout 
+            style="@style/wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            
+            <!-- 第一一单元格 -->
+	        <LinearLayout 
+				style="@style/table_cell"       
+				android:orientation="vertical"
+				android:gravity="center"
+	            >
+		        <ImageButton 
+		            android:id="@+id/ib_top_first"
+		            style="@style/table_cell_image_button"
+		            />
+		        <TextView 
+		            android:id="@+id/tv_top_first"
+		            style="@style/table_cell_image_text_view"
+		            android:text="@string/title_activity_main"
+		            />
+	        </LinearLayout>
+	        
+	        <!-- 第一二单元格 -->
+	        <LinearLayout 
+				style="@style/table_cell"       
+				android:orientation="vertical"
+				android:gravity="center"
+	            >
+		        <ImageButton 
+		            android:id="@+id/ib_top_second"
+		            style="@style/table_cell_image_button"
+		            />
+		        <TextView 
+		            android:id="@+id/tv_top_second"
+		            style="@style/table_cell_image_text_view"
+		            android:text="@string/title_activity_main"
+		            />
+	        </LinearLayout>
+	        
+   	        <!-- 第一三单元格 -->
+	        <LinearLayout 
+				style="@style/table_cell"       
+				android:orientation="vertical"
+				android:gravity="center"
+	            >
+		        <ImageButton 
+		            android:id="@+id/ib_top_third"
+		            style="@style/table_cell_image_button"
+		            />
+		        <TextView 
+		            android:id="@+id/tv_top_third"
+		            style="@style/table_cell_image_text_view"
+		            android:text="@string/title_activity_main"
+		            />
+	        </LinearLayout>
+	        
+	        <!-- 第一四单元格 -->
+	        <LinearLayout 
+				style="@style/table_cell"       
+				android:orientation="vertical"
+				android:gravity="center"
+	            >
+		        <ImageButton 
+		            android:id="@+id/ib_top_fourth"
+		            style="@style/table_cell_image_button"
+		            />
+		        <TextView 
+		            android:id="@+id/tv_top_fourth"
+		            style="@style/table_cell_image_text_view"
+		            android:text="@string/title_activity_main"
+		            />
+	        </LinearLayout>
+        </LinearLayout>
+        
+        <!-- 第二行 -->
+        <LinearLayout 
+            style="@style/wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            
+            <!-- 第二一单元格 -->
+	        <LinearLayout 
+				style="@style/table_cell"       
+				android:orientation="vertical"
+				android:gravity="center"
+	            >
+		        <ImageButton 
+		            android:id="@+id/ib_bottom_first"
+		            style="@style/table_cell_image_button"
+		            />
+		        <TextView 
+		            android:id="@+id/tv_bottom_first"
+		            style="@style/table_cell_image_text_view"
+		            android:text="@string/title_activity_main"
+		            />
+	        </LinearLayout>
+	        
+	        <!-- 第二二单元格 -->
+	        <LinearLayout 
+				style="@style/table_cell"       
+				android:orientation="vertical"
+				android:gravity="center"
+	            >
+		        <ImageButton 
+		            android:id="@+id/ib_bottom_second"
+		            style="@style/table_cell_image_button"
+		            />
+		        <TextView 
+		            android:id="@+id/tv_bottom_second"
+		            style="@style/table_cell_image_text_view"
+		            android:text="@string/title_activity_main"
+		            />
+	        </LinearLayout>
+	        
+   	        <!-- 第二三单元格 -->
+	        <LinearLayout 
+				style="@style/table_cell"       
+				android:orientation="vertical"
+				android:gravity="center"
+	            >
+		        <ImageButton 
+		            android:id="@+id/ib_bottom_third"
+		            style="@style/table_cell_image_button"
+		            />
+		        <TextView 
+		            android:id="@+id/tv_bottom_third"
+		            style="@style/table_cell_image_text_view"
+		            android:text="@string/title_activity_main"
+		            />
+	        </LinearLayout>
+	        
+	        <!-- 第二四单元格 -->
+	        <LinearLayout 
+				style="@style/table_cell"       
+				android:orientation="vertical"
+				android:gravity="center"
+	            >
+		        <ImageButton 
+		            android:id="@+id/ib_bottom_fourth"
+		            style="@style/table_cell_image_button"
+		            />
+		        <TextView 
+		            android:id="@+id/tv_bottom_fourth"
+		            style="@style/table_cell_image_text_view"
+		            android:text="@string/title_activity_main"
+		            />
+	        </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>
