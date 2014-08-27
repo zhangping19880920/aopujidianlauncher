@@ -1,6 +1,15 @@
 <resources>
 
-    <string name="app_name">com.aopujidian.launcher</string>
-    <string name="title_activity_main">aopujidian</string>
-
+    <string name="app_name">Miracast</string>
+	<string name="top_first">Android Miracast</string>
+	<string name="top_second">Apple AirPlay</string>
+	<string name="top_third">电子屏幕</string>
+	<string name="top_fourth">android桌面</string>
+	<string name="buttom_first">Trip</string>
+	<string name="buttom_second">提示停车</string>
+	<string name="buttom_third">视频黑匣子记录</string>
+	<string name="buttom_fourth">设置</string>
+	<string name="do_not_start_launcher">无法启动</string>
+	<string name="developing">正在开发中...</string>
+	<string name="exit">退出</string>
 </resources>

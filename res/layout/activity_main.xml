@@ -20,7 +20,7 @@
             
             <!-- 第一一单元格 -->
 	        <LinearLayout 
-				style="@style/table_cell"       
+				style="@style/table_cell"
 				android:orientation="vertical"
 				android:gravity="center"
 	            >
@@ -31,13 +31,13 @@
 		        <TextView 
 		            android:id="@+id/tv_top_first"
 		            style="@style/table_cell_image_text_view"
-		            android:text="@string/title_activity_main"
+		            android:text="@string/top_first"
 		            />
 	        </LinearLayout>
 	        
 	        <!-- 第一二单元格 -->
 	        <LinearLayout 
-				style="@style/table_cell"       
+				style="@style/table_cell"
 				android:orientation="vertical"
 				android:gravity="center"
 	            >
@@ -48,7 +48,7 @@
 		        <TextView 
 		            android:id="@+id/tv_top_second"
 		            style="@style/table_cell_image_text_view"
-		            android:text="@string/title_activity_main"
+		            android:text="@string/top_second"
 		            />
 	        </LinearLayout>
 	        
@@ -65,7 +65,7 @@
 		        <TextView 
 		            android:id="@+id/tv_top_third"
 		            style="@style/table_cell_image_text_view"
-		            android:text="@string/title_activity_main"
+		            android:text="@string/top_third"
 		            />
 	        </LinearLayout>
 	        
@@ -82,7 +82,7 @@
 		        <TextView 
 		            android:id="@+id/tv_top_fourth"
 		            style="@style/table_cell_image_text_view"
-		            android:text="@string/title_activity_main"
+		            android:text="@string/top_fourth"
 		            />
 	        </LinearLayout>
         </LinearLayout>
@@ -107,7 +107,7 @@
 		        <TextView 
 		            android:id="@+id/tv_bottom_first"
 		            style="@style/table_cell_image_text_view"
-		            android:text="@string/title_activity_main"
+		            android:text="@string/buttom_first"
 		            />
 	        </LinearLayout>
 	        
@@ -124,7 +124,7 @@
 		        <TextView 
 		            android:id="@+id/tv_bottom_second"
 		            style="@style/table_cell_image_text_view"
-		            android:text="@string/title_activity_main"
+		            android:text="@string/buttom_second"
 		            />
 	        </LinearLayout>
 	        
@@ -141,7 +141,7 @@
 		        <TextView 
 		            android:id="@+id/tv_bottom_third"
 		            style="@style/table_cell_image_text_view"
-		            android:text="@string/title_activity_main"
+		            android:text="@string/buttom_third"
 		            />
 	        </LinearLayout>
 	        
@@ -158,7 +158,7 @@
 		        <TextView 
 		            android:id="@+id/tv_bottom_fourth"
 		            style="@style/table_cell_image_text_view"
-		            android:text="@string/title_activity_main"
+		            android:text="@string/buttom_fourth"
 		            />
 	        </LinearLayout>
         </LinearLayout>
