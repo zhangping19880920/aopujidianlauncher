@@ -12,6 +12,8 @@ import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 import com.lidroid.xutils.bitmap.callback.BitmapLoadFrom;
 import com.lidroid.xutils.bitmap.callback.DefaultBitmapLoadCallBack;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.lidroid.xutils.view.annotation.event.OnItemClick;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -26,23 +28,29 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 public class Slide extends Activity {
+	private static final String TAG = "Slide";
 	public static BitmapUtils bitmapUtils;
 	@ViewInject(R.id.grid_view)
     private GridView imageGridView;
+	
+	@ViewInject(R.id.btn_exit)
+	private Button exit;
 
     private ImageListAdapter imageListAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		View view = View.inflate(getApplicationContext(), R.layout.slide_activity, null); // 加载fragment布局
-        ViewUtils.inject(this, view); //注入view和事件
-		setContentView(view);
+		setContentView(R.layout.slide_activity);
+        ViewUtils.inject(this); //注入view和事件
         bitmapUtils = BitmapHelp.getBitmapUtils(getApplicationContext());
         bitmapUtils.configDefaultLoadingImage(R.drawable.ic_launcher);
         bitmapUtils.configDefaultLoadFailedImage(R.drawable.bitmap);
@@ -54,6 +62,7 @@ public class Slide extends Activity {
 		new LoadThemeTask().execute();
 	}
 
+	@OnClick(R.id.btn_exit)
 	public void exit(View view) {
 		finish();
 	}
@@ -73,7 +82,6 @@ public class Slide extends Activity {
 			imageListAdapter.addSrc(mInternalThemePaths);
 			imageListAdapter.notifyDataSetChanged();// 通知listview更新数据
 			super.onPostExecute(result);
-
 		}
 
 		@Override
@@ -114,7 +122,10 @@ public class Slide extends Activity {
 		}
 	}
 	
-	
+	@OnItemClick(R.id.grid_view)
+    public void onImageItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Log.e(TAG, "onImageItemClick");
+	}
 	
 	private class ImageListAdapter extends BaseAdapter {
 
@@ -165,8 +176,6 @@ public class Slide extends Activity {
             }
             holder.imgPb.setProgress(0);
             bitmapUtils.display(holder.imgItem, imgSrcList.get(position), new CustomBitmapLoadCallBack(holder));
-            //bitmapUtils.display((ImageView) view, imgSrcList.get(position), displayConfig);
-            //bitmapUtils.display((ImageView) view, imgSrcList.get(position));
             return view;
         }
     }

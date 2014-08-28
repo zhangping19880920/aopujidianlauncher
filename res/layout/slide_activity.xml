@@ -2,19 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    <Button 
-        android:id="@+id/btn_exit"
-        android:layout_width="100dip"
-        android:layout_height="40dip"
-        android:text="@string/exit"
-        android:layout_alignParentRight="true"
-        android:onClick="exit"
-        android:background="@drawable/icon_selector"
-        />
 	<GridView 
 	    android:id="@+id/grid_view"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:numColumns="3"/>
 	    
+    <Button 
+        android:id="@+id/btn_exit"
+        android:layout_width="100dip"
+        android:layout_height="40dip"
+        android:text="@string/exit"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/icon_selector"
+        />
 </RelativeLayout>
