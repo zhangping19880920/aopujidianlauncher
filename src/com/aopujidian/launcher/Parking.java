@@ -4,6 +4,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,12 +12,14 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class Parking extends Activity {
@@ -41,6 +44,7 @@ public class Parking extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.parking_activity);
 		ViewUtils.inject(this);
+		
 		String latText = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getString(PREFS_KEY_PARKING, "");
 		if (null != latText && !TextUtils.isEmpty(latText)) {
 			mTextView.setText(latText);

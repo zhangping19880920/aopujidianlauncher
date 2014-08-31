@@ -3,14 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <RelativeLayout 
+        android:id="@+id/rl_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/action_background"
+        >
+	    <Button
+	        android:id="@+id/btn_exit"
+	        style="@style/action_bar_item"
+	        android:layout_alignParentLeft="true"
+	        android:text="@string/exit" />
+	
+	    <Button
+	        android:id="@+id/btn_set_background"
+	        style="@style/action_bar_item"
+	        android:layout_alignParentRight="true"
+	        android:text="@string/set_background" />
+	
+	    <Button
+	        android:id="@+id/btn_edit"
+	        style="@style/action_bar_item"
+	        android:layout_toLeftOf="@+id/btn_set_background"
+	        android:text="@string/edit" />
+    </RelativeLayout>
+    
     <ImageView
         android:id="@+id/iv_background"
+        android:layout_below="@+id/rl_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/default_background" />
 
     <ScrollView
+        android:layout_below="@+id/rl_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -26,34 +53,13 @@
 
     <EditText
         android:id="@+id/et_text"
+        android:layout_below="@+id/rl_bar"
         android:layout_width="400dip"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:enabled="false"
         android:visibility="gone" />
+    
 
-    <Button
-        android:id="@+id/btn_exit"
-        android:layout_width="100dip"
-        android:layout_height="40dip"
-        android:layout_alignParentLeft="true"
-        android:background="@drawable/icon_selector"
-        android:text="@string/exit" />
-
-    <Button
-        android:id="@+id/btn_set_background"
-        android:layout_width="100dip"
-        android:layout_height="40dip"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/icon_selector"
-        android:text="@string/set_background" />
-
-    <Button
-        android:id="@+id/btn_edit"
-        android:layout_width="100dip"
-        android:layout_height="40dip"
-        android:layout_toLeftOf="@+id/btn_set_background"
-        android:background="@drawable/icon_selector"
-        android:text="@string/edit" />
 
 </RelativeLayout>

@@ -7,16 +7,28 @@
 	</style>
 	
 	<style name="table_cell" parent="wrap_content">
-	    <item name="android:layout_margin">20dip</item>
+	    <item name="android:layout_margin">5dip</item>
 	    <item name="android:layout_width">120dip</item>
 	    <item name="android:layout_height">120dip</item>
 	</style>
 	
-	<style name="table_cell_image_button" parent="wrap_content">
+	<style name="table_cell_size">
+	    <item name="android:layout_width">200dip</item>
+	    <item name="android:layout_height">200dip</item>
+	</style>
+	
+	<style name="table_cell_image_button" parent="table_cell_size">
 	    <item name="android:layout_margin">10dip</item>
+	    <item name="android:scaleType">fitCenter</item>
 	    <item name="android:onClick">onClick</item>
-	    <item name="android:src">@drawable/icon_selector</item>
 	    <item name="android:background">@android:color/transparent</item>
+	</style>
+	
+	<style name="action_bar_item">
+	    <item name="android:layout_width">100dip</item>
+	    <item name="android:layout_height">40dip</item>
+	    <item name="android:background">@android:color/transparent</item>
+	    <item name="android:layout_margin">0dip</item>
 	</style>
 	
 	<style name="table_cell_image_text_view" parent="wrap_content">

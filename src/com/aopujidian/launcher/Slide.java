@@ -53,7 +53,7 @@ public class Slide extends Activity {
         ViewUtils.inject(this); //注入view和事件
         bitmapUtils = BitmapHelp.getBitmapUtils(getApplicationContext());
         bitmapUtils.configDefaultLoadingImage(R.drawable.ic_launcher);
-        bitmapUtils.configDefaultLoadFailedImage(R.drawable.bitmap);
+        bitmapUtils.configDefaultLoadFailedImage(R.drawable.ic_launcher);
         bitmapUtils.configDefaultBitmapConfig(Bitmap.Config.RGB_565);
         bitmapUtils.configDefaultBitmapMaxSize(BitmapCommonUtils.getScreenSize(getApplicationContext()).scaleDown(3));
         
