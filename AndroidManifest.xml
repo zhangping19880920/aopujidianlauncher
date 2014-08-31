@@ -26,8 +26,8 @@
                 <category android:name="android.intent.category.HOME"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Slide"/>
-        <activity android:name=".Parking"/>
+        <activity android:name=".Slide" android:screenOrientation="landscape"/>
+        <activity android:name=".Parking" android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

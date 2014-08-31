@@ -2,19 +2,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    <Button 
+
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_background" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="10"
+            android:textSize="40sp" />
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/et_text"
+        android:layout_width="400dip"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:enabled="false"
+        android:visibility="gone" />
+
+    <Button
         android:id="@+id/btn_exit"
         android:layout_width="100dip"
         android:layout_height="40dip"
-        android:text="@string/exit"
-        android:layout_alignParentRight="true"
-        android:onClick="exit"
+        android:layout_alignParentLeft="true"
         android:background="@drawable/icon_selector"
-        />
-	<TextView 
-	    style="@style/wrap_content"
-	    android:layout_centerInParent="true"
-	    android:textSize="22sp"
-	    android:text="@string/developing"
-	    />
+        android:text="@string/exit" />
+
+    <Button
+        android:id="@+id/btn_set_background"
+        android:layout_width="100dip"
+        android:layout_height="40dip"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/icon_selector"
+        android:text="@string/set_background" />
+
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="100dip"
+        android:layout_height="40dip"
+        android:layout_toLeftOf="@+id/btn_set_background"
+        android:background="@drawable/icon_selector"
+        android:text="@string/edit" />
+
 </RelativeLayout>
