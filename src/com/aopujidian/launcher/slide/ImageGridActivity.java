@@ -15,6 +15,10 @@
  *******************************************************************************/
 package com.aopujidian.launcher.slide;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -30,7 +34,6 @@ import android.widget.ProgressBar;
 
 import com.aopujidian.launcher.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -45,7 +48,11 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 		public static final String IMAGE_POSITION = "com.nostra13.example.universalimageloader.IMAGE_POSITION";
 	}
 
+	protected static final String TAG = "ImageGridActivity";
+
 	private String[] mImageUrls = new String[]{};
+	
+	private Set<Integer> mSelectedPosition = new HashSet<Integer>();
 
 	DisplayImageOptions mOptions;
 
@@ -69,7 +76,24 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 		mGridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				startImagePagerActivity(position);
+//				startImagePagerActivity(position);
+				
+				ViewHolder holder = (ViewHolder) view.getTag();
+				if (mSelectedPosition.contains(position)) {
+					mSelectedPosition.remove(position);
+					holder.indication.setVisibility(View.GONE);
+				} else {
+					mSelectedPosition.add(position);
+					holder.indication.setVisibility(View.VISIBLE);
+				}
+				
+				Iterator<Integer> iterator = mSelectedPosition.iterator();
+				Log.e(TAG, "selected start------------");
+				while (iterator.hasNext()) {
+					Integer integer = (Integer) iterator.next();
+					Log.e(TAG, "integer: " + integer);
+				}
+				Log.e(TAG, "selected end------------");
 			}
 		});
 		
@@ -95,6 +119,7 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 	static class ViewHolder {
 		ImageView imageView;
 		ProgressBar progressBar;
+		ImageView indication;
 	}
 
 	public class ImageAdapter extends BaseAdapter {
@@ -117,7 +142,6 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			Log.e(TAG, "getView");
 			final ViewHolder holder;
 			View view = convertView;
 			if (view == null) {
@@ -126,9 +150,16 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 				assert view != null;
 				holder.imageView = (ImageView) view.findViewById(R.id.image);
 				holder.progressBar = (ProgressBar) view.findViewById(R.id.progress);
+				holder.indication = (ImageView) view.findViewById(R.id.indication);
 				view.setTag(holder);
 			} else {
 				holder = (ViewHolder) view.getTag();
+			}
+			
+			if (mSelectedPosition.contains(position)) {
+				holder.indication.setVisibility(View.VISIBLE);
+			} else {
+				holder.indication.setVisibility(View.GONE);
 			}
 
 			mImageLoader.displayImage(mImageUrls[position], holder.imageView, mOptions, new SimpleImageLoadingListener() {

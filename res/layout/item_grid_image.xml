@@ -19,4 +19,11 @@
         android:indeterminate="false"
         android:max="100"
         android:layout_gravity="bottom"/>
+    <ImageView 
+        android:id="@+id/indication"
+        android:layout_width="@dimen/dimen_5"
+        android:layout_height="@dimen/dimen_5"
+        android:src="@color/color_1"
+        android:visibility="gone"
+        />
 </FrameLayout>
