@@ -1,15 +1,17 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme" parent="android:Theme.Light.NoTitleBar.Fullscreen" />
 	<style name="wrap_content">
 	    <item name="android:layout_width">wrap_content</item>
 	    <item name="android:layout_height">wrap_content</item>
 	</style>
+	<style name="match_content">
+	    <item name="android:layout_width">match_parent</item>
+	    <item name="android:layout_height">match_parent</item>
+	</style>
 	
-	<style name="table_cell" parent="wrap_content">
+	<style name="table_cell" parent="table_cell_size">
 	    <item name="android:layout_margin">5dip</item>
-	    <item name="android:layout_width">120dip</item>
-	    <item name="android:layout_height">120dip</item>
 	</style>
 	
 	<style name="table_cell_size">
@@ -18,7 +20,6 @@
 	</style>
 	
 	<style name="table_cell_image_button" parent="table_cell_size">
-	    <item name="android:layout_margin">10dip</item>
 	    <item name="android:scaleType">fitCenter</item>
 	    <item name="android:onClick">onClick</item>
 	    <item name="android:background">@android:color/transparent</item>
@@ -31,6 +32,9 @@
 	    <item name="android:layout_margin">0dip</item>
 	</style>
 	
-	<style name="table_cell_image_text_view" parent="wrap_content">
+	<style name="table_cell_image_text_view" parent="match_content">
+	    <item name="android:textSize">21sp</item>
+	    <item name="android:gravity">center_horizontal|bottom</item>
+	    <item name="android:textColor">@android:color/white</item>
 	</style>
 </resources>
