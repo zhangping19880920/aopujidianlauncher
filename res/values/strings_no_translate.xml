@@ -1,3 +1,9 @@
 <resources>
 	<string name="descr_image">Image</string>
+	
+	<integer-array name="time_interval_value">
+	    <item >3000</item>
+	    <item >4000</item>
+	    <item >5000</item>
+	</integer-array>
 </resources>

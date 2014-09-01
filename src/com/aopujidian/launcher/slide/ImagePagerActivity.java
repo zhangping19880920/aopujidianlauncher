@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.aopujidian.launcher.slide;
 
+import android.content.Context;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -24,13 +26,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.aopujidian.launcher.R;
 import com.aopujidian.launcher.slide.ImageGridActivity.Extra;
+import com.aopujidian.launcher.utils.PrefsConfig;
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -47,15 +55,22 @@ public class ImagePagerActivity extends BaseActivity {
 
 	private static final String TAG = "ImagePagerActivity";
 
-	DisplayImageOptions options;
+	private DisplayImageOptions mOptions;
 
-	ViewPager pager;
+	private ViewPager mPager;
+	
+	private int mInterval;
+	
+	@ViewInject(R.id.time_spinner)
+	private Spinner mSpinner;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_image_pager);
 		ViewUtils.inject(this);
+		
+		mInterval = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).getInt(PrefsConfig.PREFS_KEY_INTERVAL, PrefsConfig.PREFS_INTERVAL_DEFAULT_VALUE);
 		
 		Bundle bundle = getIntent().getExtras();
 		assert bundle != null;
@@ -64,7 +79,7 @@ public class ImagePagerActivity extends BaseActivity {
 			Log.e(TAG, "imageUrls[ " + i + " ] = " + imageUrls[i]);
 		}
 
-		options = new DisplayImageOptions.Builder()
+		mOptions = new DisplayImageOptions.Builder()
 			.showImageForEmptyUri(R.drawable.image_loading)
 			.showImageOnFail(R.drawable.image_loading)
 			.resetViewBeforeLoading(true)
@@ -76,18 +91,62 @@ public class ImagePagerActivity extends BaseActivity {
 			.displayer(new FadeInBitmapDisplayer(300))
 			.build();
 
-		pager = (ViewPager) findViewById(R.id.pager);
-		pager.setAdapter(new ImagePagerAdapter(imageUrls));
+		mPager = (ViewPager) findViewById(R.id.pager);
+		mPager.setAdapter(new ImagePagerAdapter(imageUrls));
+		
+		
+		mSpinner = (Spinner) findViewById(R.id.time_spinner);
+		final int[] time_inter_values = getResources().getIntArray(R.array.time_interval_value);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.time_interval, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(adapter);
+        
+        int i = 0;
+        for (; i < time_inter_values.length; i++) {
+        	int value = time_inter_values[i];
+			if (value == mInterval) {
+				break;
+			}
+		}
+        mSpinner.setSelection(i);
+        mSpinner.setOnItemSelectedListener(
+                new OnItemSelectedListener() {
+                    public void onItemSelected(
+                            AdapterView<?> parent, View view, int position, long id) {
+                    	int value = time_inter_values[position];
+                    	mInterval = value;
+//                        showToast("Spinner1: position=" + position + " value=" + value);
+                        Editor edit = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).edit();
+            			edit.putInt(PrefsConfig.PREFS_KEY_INTERVAL, mInterval);
+            			edit.commit();
+            			
+            			//TODO重新记时
+                    }
+
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    	
+                        showToast("Spinner1: unselected");
+                    }
+                });
 	}
+	
+    void showToast(CharSequence msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		outState.putInt(STATE_POSITION, pager.getCurrentItem());
+		outState.putInt(STATE_POSITION, mPager.getCurrentItem());
 	}
 	
 	@OnClick(R.id.btn_exit)
 	public void exit(View view) {
 		finish();
+	}
+	@OnClick(R.id.btn_set_time)
+	public void setTime(View view){
+		//TODO 弹出时间摆选择
 	}
 
 	private class ImagePagerAdapter extends PagerAdapter {
@@ -117,7 +176,7 @@ public class ImagePagerActivity extends BaseActivity {
 			ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
 			final ProgressBar spinner = (ProgressBar) imageLayout.findViewById(R.id.loading);
 
-			mImageLoader.displayImage(images[position], imageView, options, new SimpleImageLoadingListener() {
+			mImageLoader.displayImage(images[position], imageView, mOptions, new SimpleImageLoadingListener() {
 				@Override
 				public void onLoadingStarted(String imageUri, View view) {
 					spinner.setVisibility(View.VISIBLE);

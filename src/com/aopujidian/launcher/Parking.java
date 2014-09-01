@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.aopujidian.launcher.utils.PrefsConfig;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -22,10 +23,6 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 public class Parking extends Activity {
 	
 	private static final String TAG = "Parking";
-	
-	private static final String PREFS_NAME = "config";
-	
-	private static final String PREFS_KEY_PARKING = "parking_text";
 	
 	@ViewInject(R.id.iv_background)
 	private ImageView mBackgroundImageView;
@@ -42,7 +39,7 @@ public class Parking extends Activity {
 		setContentView(R.layout.parking_activity);
 		ViewUtils.inject(this);
 		
-		String latText = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getString(PREFS_KEY_PARKING, "");
+		String latText = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).getString(PrefsConfig.PREFS_KEY_PARKING, PrefsConfig.PREFS_PARKING_DEFAULT_VALUE);
 		if (null != latText && !TextUtils.isEmpty(latText)) {
 			mTextView.setText(latText);
 		}
@@ -80,8 +77,8 @@ public class Parking extends Activity {
 			mTextView.setVisibility(View.VISIBLE);
 			String text = mEdittext.getText().toString();
 			mTextView.setText(text);
-			Editor edit = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit();
-			edit.putString(PREFS_KEY_PARKING, mTextView.getText().toString());
+			Editor edit = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).edit();
+			edit.putString(PrefsConfig.PREFS_KEY_PARKING, mTextView.getText().toString());
 			edit.commit();
 		} else {
 			mEdittext.setEnabled(true);

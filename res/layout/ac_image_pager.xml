@@ -13,5 +13,18 @@
         style="@style/action_bar_item"
         android:layout_alignParentLeft="true"
         android:text="@string/exit" />
+    <Button
+        android:id="@+id/btn_set_time"
+        style="@style/action_bar_item"
+        android:layout_alignParentRight="true"
+        android:text="@string/set_time" />
+        
+    <Spinner android:id="@+id/time_spinner"
+        android:layout_width="@dimen/time_spinner_width"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/btn_set_time"
+        android:drawSelectorOnTop="true"
+        android:prompt="@string/set_time"
+    />
 
 </RelativeLayout>

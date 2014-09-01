@@ -5,7 +5,7 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="fill_parent" 
+        android:layout_width="match_parent" 
         android:layout_height="@dimen/dimen_200"
         android:adjustViewBounds="true"
         android:contentDescription="@string/descr_image"

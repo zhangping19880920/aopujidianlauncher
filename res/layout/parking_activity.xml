@@ -50,7 +50,7 @@
             android:layout_gravity="center"
             android:maxLines="10"
             android:text="fdsfsfsdfsadfsdfsdfsdfsdfsdfdsf"
-            android:textSize="40sp" />
+            android:textSize="@dimen/parking_text_size" />
     </ScrollView>
 
     <EditText

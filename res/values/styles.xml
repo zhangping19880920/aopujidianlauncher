@@ -11,12 +11,12 @@
 	</style>
 	
 	<style name="table_cell" parent="table_cell_size">
-	    <item name="android:layout_margin">5dip</item>
+	    <item name="android:layout_margin">@dimen/table_cell_margin</item>
 	</style>
 	
 	<style name="table_cell_size">
-	    <item name="android:layout_width">200dip</item>
-	    <item name="android:layout_height">200dip</item>
+	    <item name="android:layout_width">@dimen/table_cell_width</item>
+	    <item name="android:layout_height">@dimen/table_cell_height</item>
 	</style>
 	
 	<style name="table_cell_image_button" parent="table_cell_size">
@@ -26,14 +26,14 @@
 	</style>
 	
 	<style name="action_bar_item">
-	    <item name="android:layout_width">100dip</item>
-	    <item name="android:layout_height">40dip</item>
+	    <item name="android:layout_width">@dimen/action_bar_item_witdh</item>
+	    <item name="android:layout_height">@dimen/action_bar_item_height</item>
 	    <item name="android:background">@android:color/transparent</item>
 	    <item name="android:layout_margin">0dip</item>
 	</style>
 	
 	<style name="table_cell_image_text_view" parent="match_content">
-	    <item name="android:textSize">21sp</item>
+	    <item name="android:textSize">@dimen/table_cell_image_text_size</item>
 	    <item name="android:gravity">center_horizontal|bottom</item>
 	    <item name="android:textColor">@android:color/white</item>
 	</style>

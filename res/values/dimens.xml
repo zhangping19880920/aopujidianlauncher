@@ -52,4 +52,14 @@
     <color name="color_10">#e5e5e5</color>
     <color name="color_corner">#4478ccf0</color>
 
+    
+    <dimen name="grid_view_padding">4dip</dimen>
+    <dimen name="time_spinner_width">100dip</dimen>
+    <dimen name="parking_text_size">40sp</dimen>
+    <dimen name="table_cell_margin">5dip</dimen>
+    <dimen name="table_cell_width">200dip</dimen>
+    <dimen name="table_cell_height">200dip</dimen>
+    <dimen name="action_bar_item_witdh">100dip</dimen>
+    <dimen name="action_bar_item_height">40dip</dimen>
+    <dimen name="table_cell_image_text_size">21sp</dimen>
 </resources>
