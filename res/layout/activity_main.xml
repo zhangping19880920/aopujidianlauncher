@@ -102,7 +102,7 @@
             
             <!-- 第二一单元格 -->
 	        <RelativeLayout 
-				style="@style/table_cell"       
+				style="@style/table_cell"
 				android:orientation="vertical"
 				android:gravity="center"
 	            >

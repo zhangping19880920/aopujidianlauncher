@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -71,8 +72,10 @@ public class Parking extends Activity {
 	
 	@OnClick(R.id.btn_edit)
 	public void edit(View view){
+		Button btn = (Button)view;
 		if (mEdittext.isEnabled()) {
 			mEdittext.setEnabled(false);
+			btn.setText(R.string.edit);
 			mEdittext.setVisibility(View.GONE);
 			mTextView.setVisibility(View.VISIBLE);
 			String text = mEdittext.getText().toString();
@@ -85,6 +88,7 @@ public class Parking extends Activity {
 			mEdittext.setVisibility(View.VISIBLE);
 			mEdittext.requestFocus();
 			mEdittext.setText(mTextView.getText());
+			btn.setText(R.string.finish_edit);
 			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 			imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
 			mTextView.setVisibility(View.GONE);

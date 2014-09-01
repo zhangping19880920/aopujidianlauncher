@@ -15,8 +15,10 @@
  *******************************************************************************/
 package com.aopujidian.launcher.slide;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import android.content.Intent;
@@ -33,6 +35,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.aopujidian.launcher.R;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
@@ -44,8 +48,8 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 public class ImageGridActivity extends AbsListViewBaseActivity {
 	
 	public static class Extra {
-		public static final String IMAGES = "com.nostra13.example.universalimageloader.IMAGES";
-		public static final String IMAGE_POSITION = "com.nostra13.example.universalimageloader.IMAGE_POSITION";
+		public static final String IMAGES = "IMAGES";
+		public static final String IMAGE_POSITION = "IMAGE_POSITION";
 	}
 
 	protected static final String TAG = "ImageGridActivity";
@@ -60,6 +64,7 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_image_grid);
+		ViewUtils.inject(this);
 		
 		mOptions = new DisplayImageOptions.Builder()
 		.showImageOnLoading(R.drawable.image_loading)
@@ -76,8 +81,6 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 		mGridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//				startImagePagerActivity(position);
-				
 				ViewHolder holder = (ViewHolder) view.getTag();
 				if (mSelectedPosition.contains(position)) {
 					mSelectedPosition.remove(position);
@@ -107,12 +110,30 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 			}
 		}).execute();
 	}
+	
+	@OnClick(R.id.btn_exit)
+	public void exit(View view) {
+		finish();
+	}
+	
+	
+	@OnClick(R.id.btn_start_slide)
+	public void startSlide(View view) {
+		startImagePagerActivity();
+	}
 
-	private void startImagePagerActivity(int position) {
+	private void startImagePagerActivity() {
 		//TODO
+		List<String> selectUrls = new ArrayList<String>();
+		Iterator<Integer> iterator = mSelectedPosition.iterator();
+		while (iterator.hasNext()) {
+			Integer integer = (Integer) iterator.next();
+			selectUrls.add(mImageUrls[integer]);
+		}
+		String[] urls = selectUrls.toArray(new String[0]);
+		Log.e(TAG, "urls = " + urls);
 		Intent intent = new Intent(this, ImagePagerActivity.class);
-		intent.putExtra(Extra.IMAGES, mImageUrls);
-		intent.putExtra(Extra.IMAGE_POSITION, position);
+		intent.putExtra(Extra.IMAGES, urls);
 		startActivity(intent);
 	}
 
