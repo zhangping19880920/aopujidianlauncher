@@ -209,11 +209,7 @@ public class MainActivity extends Activity {
 		case R.id.ib_top_third:
 			Toast.makeText(getApplicationContext(), "点击了: " + getString(R.string.top_third), Toast.LENGTH_SHORT).show();
 			//TODO 进入电子屏幕
-//			goActivity(Slide.class);
-//			loadFrom(new File(getFilesDir(), "last_thumb"));
-			Uri lastThumbnail = getLastThumbnail(getContentResolver());
-			startActivity(new Intent("com.android.camera.action.REVIEW", lastThumbnail));
-//	        startActivity(intent);
+			goGallery();
 			break;
 		case R.id.ib_top_fourth:
 			Toast.makeText(getApplicationContext(), "点击了: " + getString(R.string.top_fourth) + "进入android 桌面", Toast.LENGTH_SHORT).show();
@@ -232,18 +228,35 @@ public class MainActivity extends Activity {
 			Toast.makeText(getApplicationContext(), "点击了: " + getString(R.string.buttom_third), Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.ib_bottom_fourth:
-			Toast.makeText(getApplicationContext(), "点击了: " + getString(R.string.buttom_fourth), Toast.LENGTH_SHORT).show();
+			goSettings();
 			break;
 		}
     }
     
-    /** 启动activity */
+    private void goGallery() {
+//		loadFrom(new File(getFilesDir(), "last_thumb"));
+//		Uri lastThumbnail = getLastThumbnail(getContentResolver());
+//		startActivity(new Intent("com.android.camera.action.REVIEW", lastThumbnail));
+    	
+    	Intent galleryIntent = new Intent();
+    	galleryIntent.setAction(Intent.ACTION_MAIN);
+    	galleryIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+    	galleryIntent.addCategory(Intent.CATEGORY_APP_GALLERY);
+    	try {
+			startActivity(galleryIntent);
+		} catch (Exception e) {
+			String msg = getString(R.string.do_not_start_activity) + getString(R.string.top_third);
+			Toast.makeText(getApplicationContext(), msg, 0).show();
+		}
+	}
+
+	/** 启动activity */
     private void goActivity(Class<?> cls){
     	Intent intent = new Intent(getApplicationContext(), cls);
     	try {
     		startActivity(intent);
 		} catch (ActivityNotFoundException e) {
-			Toast.makeText(getApplicationContext(), R.string.do_not_start_launcher, 0).show();
+			Toast.makeText(getApplicationContext(), R.string.do_not_start_activity, 0).show();
 		}
     }
     
@@ -256,7 +269,22 @@ public class MainActivity extends Activity {
 		try {
 			startActivity(intent);
 		} catch (ActivityNotFoundException e) {
-			String msg = getString(R.string.do_not_start_launcher) + getString(R.string.top_fourth);
+			String msg = getString(R.string.do_not_start_activity) + getString(R.string.top_fourth);
+			Toast.makeText(getApplicationContext(), msg, 0).show();
+		}
+    }
+    
+    /** 启动设置 */
+    private void goSettings(){
+		Intent settingIntent = new Intent();
+		settingIntent.setAction("android.settings.SETTINGS");
+		settingIntent.addCategory(Intent.CATEGORY_DEFAULT);
+		settingIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+		
+		try {
+			startActivity(settingIntent);
+		} catch (Exception e) {
+			String msg = getString(R.string.do_not_start_activity) + getString(R.string.top_fourth);
 			Toast.makeText(getApplicationContext(), msg, 0).show();
 		}
     }
