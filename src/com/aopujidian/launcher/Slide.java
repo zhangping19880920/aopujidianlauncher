@@ -4,6 +4,26 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+
 import com.aopujidian.launcher.utils.BitmapHelp;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -15,36 +35,12 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
-import android.app.Activity;
-import android.content.Context;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-
 public class Slide extends Activity {
 	private static final String TAG = "Slide";
 	public static BitmapUtils bitmapUtils;
 	@ViewInject(R.id.grid_view)
     private GridView imageGridView;
 	
-	@ViewInject(R.id.btn_exit)
-	private Button exit;
-
     private ImageListAdapter imageListAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +100,7 @@ public class Slide extends Activity {
 					recursionLoad(file);
 				} else {
 					String absolutePath = file.getAbsolutePath();
-					String suffix = absolutePath.substring(absolutePath
-							.indexOf(".") + 1);
+					String suffix = absolutePath.substring(absolutePath.indexOf(".") + 1);
 					suffix = suffix.toLowerCase();
 					if (filterMedia(suffix)) {
 						mInternalThemePaths.add(absolutePath);

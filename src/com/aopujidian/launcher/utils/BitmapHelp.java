@@ -1,6 +1,7 @@
 package com.aopujidian.launcher.utils;
 
 import android.content.Context;
+
 import com.lidroid.xutils.BitmapUtils;
 
 /**

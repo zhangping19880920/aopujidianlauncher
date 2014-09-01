@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="fragment_content_height">493dip</dimen>
+    <dimen name="fragment_content_height_reverse">-493dip</dimen>
+    <dimen name="fragment_menu_width">241dip</dimen>
+
+    <!-- ivmall dimen style -->
+    <dimen name="dimen_1">4dip</dimen>
+    <dimen name="dimen_2">16dip</dimen>
+    <dimen name="dimen_3">20dip</dimen>
+    <dimen name="dimen_4">22dip</dimen>
+    <dimen name="dimen_5">26dip</dimen>
+    <dimen name="dimen_6">56dip</dimen>
+    <dimen name="dimen_7">64dip</dimen>
+    <dimen name="dimen_8">66dip</dimen>
+    <dimen name="dimen_9">12dip</dimen>
+    <dimen name="dimen_10">42dip</dimen>
+    
+    <dimen name="dimen_24">24dip</dimen>
+    <dimen name="dimen_40">40dip</dimen>
+    <dimen name="dimen_59">59dip</dimen>
+    <dimen name="dimen_60">60dip</dimen>
+    <dimen name="dimen_74">74dip</dimen>
+    <dimen name="dimen_200">220dip</dimen>
+    <dimen name="dimen_divider_height">0.6dip</dimen>
+
+    <!-- ivmall fonts style -->
+    <dimen name="fonts_1">16sp</dimen>
+    <dimen name="fonts_2">18sp</dimen>
+    <dimen name="fonts_3">20sp</dimen>
+    <dimen name="fonts_4">26sp</dimen>
+    <dimen name="fonts_5">32sp</dimen>
+    <dimen name="fonts_6">120sp</dimen>
+
+    <!-- ivmall alpha style -->
+    <item name="alpha_1" format="float" type="dimen">0.2</item>
+    <item name="alpha_2" format="float" type="dimen">0.3</item>
+    <item name="alpha_3" format="float" type="dimen">0.6</item>
+    <item name="alpha_4" format="float" type="dimen">0.8</item>
+
+    <!-- ivmall color style -->
+    <color name="color_1">#7baecb</color>
+    <color name="color_2">#78ccf0</color>
+    <color name="color_3">#e2f6ff</color>
+    <color name="color_4">#efefef</color>
+    <color name="color_5">#f8532d</color>
+    <color name="color_6">#e8e8e8</color>
+    <color name="color_7">#dee9ee</color>
+    <color name="color_8">#f2f2f2</color>
+    <color name="color_9">#e2f6ff</color>
+    <color name="color_10">#e5e5e5</color>
+    <color name="color_corner">#4478ccf0</color>
+
+</resources>

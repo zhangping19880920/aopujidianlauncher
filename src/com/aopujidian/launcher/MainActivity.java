@@ -7,16 +7,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import com.aopujidian.launcher.slide.ImageGridActivity;
 
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.ParcelFileDescriptor;
-import android.provider.MediaStore.Images;
-import android.provider.MediaStore.MediaColumns;
-import android.provider.MediaStore.Video;
-import android.provider.MediaStore.Images.ImageColumns;
-import android.provider.MediaStore.Video.VideoColumns;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
@@ -25,10 +17,18 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore.Images;
+import android.provider.MediaStore.Images.ImageColumns;
+import android.provider.MediaStore.MediaColumns;
+import android.provider.MediaStore.Video;
+import android.provider.MediaStore.Video.VideoColumns;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -209,7 +209,8 @@ public class MainActivity extends Activity {
 		case R.id.ib_top_third:
 			Toast.makeText(getApplicationContext(), "点击了: " + getString(R.string.top_third), Toast.LENGTH_SHORT).show();
 			//TODO 进入电子屏幕
-			goGallery();
+			goActivity(ImageGridActivity.class);
+//			goGallery();
 			break;
 		case R.id.ib_top_fourth:
 			Toast.makeText(getApplicationContext(), "点击了: " + getString(R.string.top_fourth) + "进入android 桌面", Toast.LENGTH_SHORT).show();

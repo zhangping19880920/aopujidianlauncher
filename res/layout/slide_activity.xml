@@ -14,6 +14,5 @@
         android:layout_height="40dip"
         android:text="@string/exit"
         android:layout_alignParentRight="true"
-        android:background="@drawable/icon_selector"
         />
 </RelativeLayout>
