@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -64,6 +65,18 @@ public class ImagePagerActivity extends BaseActivity {
 	@ViewInject(R.id.time_spinner)
 	private Spinner mSpinner;
 	
+	private static final int MSG_SHOW_NEXT = 100;
+	
+	private Handler mHandler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case MSG_SHOW_NEXT:
+				
+				break;
+			}
+		};
+	};
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,7 +101,7 @@ public class ImagePagerActivity extends BaseActivity {
 			.imageScaleType(ImageScaleType.EXACTLY)
 			.bitmapConfig(Bitmap.Config.RGB_565)
 			.considerExifParams(true)
-			.displayer(new FadeInBitmapDisplayer(300))
+			.displayer(new FadeInBitmapDisplayer(500))
 			.build();
 
 		mPager = (ViewPager) findViewById(R.id.pager);
@@ -122,6 +135,8 @@ public class ImagePagerActivity extends BaseActivity {
             			edit.commit();
             			
             			//TODO重新记时
+            			mHandler.removeMessages(MSG_SHOW_NEXT);
+            			mHandler.sendEmptyMessage(MSG_SHOW_NEXT);
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -143,10 +158,6 @@ public class ImagePagerActivity extends BaseActivity {
 	@OnClick(R.id.btn_exit)
 	public void exit(View view) {
 		finish();
-	}
-	@OnClick(R.id.btn_set_time)
-	public void setTime(View view){
-		//TODO 弹出时间摆选择
 	}
 
 	private class ImagePagerAdapter extends PagerAdapter {

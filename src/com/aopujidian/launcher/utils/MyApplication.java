@@ -15,21 +15,30 @@
  *******************************************************************************/
 package com.aopujidian.launcher.utils;
 
+import java.io.File;
+
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.StrictMode;
+
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.process.BitmapProcessor;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  */
 public class MyApplication extends Application {
+	protected static final String TAG = "MyApplication";
+
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	@SuppressWarnings("unused")
 	@Override
@@ -45,14 +54,30 @@ public class MyApplication extends Application {
 	}
 
 	public static void initImageLoader(Context context) {
+		final int maxWidth = 800;
+		final int maxHeight = 1280;
+		final int MB = 1024 * 1024; 
+		File cacheDir = StorageUtils.getOwnCacheDirectory(context, "imageloader/Cache");
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+				.memoryCacheExtraOptions(maxWidth, maxHeight) // max width, max height，即保存的每个缓存文件的最大长宽
 				.threadPriority(Thread.NORM_PRIORITY - 2)
 				.denyCacheImageMultipleSizesInMemory()
+				.diskCacheExtraOptions(maxWidth, maxHeight, new BitmapProcessor() {
+					
+					@Override
+					public Bitmap process(Bitmap bitmap) {
+						if (null != bitmap && (bitmap.getWidth() > maxWidth || bitmap.getHeight() > maxHeight)) {
+							return bitmap;
+						}
+						return null;
+					}
+				})
+				.diskCache(new UnlimitedDiscCache(cacheDir))//自定义缓存路径 
 				.diskCacheFileNameGenerator(new Md5FileNameGenerator())
-				.diskCacheSize(50 * 1024 * 1024) // 50 Mb
+				.diskCacheSize(50 * MB) // 50 Mb
 				.tasksProcessingOrder(QueueProcessingType.LIFO)
-				.memoryCache(new UsingFreqLimitedMemoryCache(15 * 1024 * 1024))
-				.memoryCacheSize(15 * 1024 * 1024)
+				.memoryCache(new UsingFreqLimitedMemoryCache(10 * MB))
+				.memoryCacheSize(10 * MB)
 				.writeDebugLogs() // Remove for release app
 				.build();
 		ImageLoader.getInstance().init(config);

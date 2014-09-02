@@ -25,9 +25,12 @@
 	    <item name="android:background">@android:color/transparent</item>
 	</style>
 	
-	<style name="action_bar_item">
+	<style name="action_bar_item_size">
 	    <item name="android:layout_width">@dimen/action_bar_item_witdh</item>
 	    <item name="android:layout_height">@dimen/action_bar_item_height</item>
+	</style>
+	
+	<style name="action_bar_item" parent="action_bar_item_size">
 	    <item name="android:background">@android:color/transparent</item>
 	    <item name="android:layout_margin">0dip</item>
 	</style>

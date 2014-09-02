@@ -15,7 +15,7 @@
 	<string name="edit">编辑</string>
 	<string name="finish_edit">完成编辑</string>
 	<string name="start_slide">播放幻灯片</string>
-	<string name="set_time">设置播放间隔</string>
+	<string name="set_time">播放间隔:</string>
 	
     <string-array name="time_interval">
         <item>3秒</item>

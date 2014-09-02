@@ -68,10 +68,9 @@ public class LoadImageTask extends AsyncTask<Void, Integer, Void> {
 						.indexOf(".") + 1);
 				suffix = suffix.toLowerCase();
 				if (filterMedia(suffix)) {
-					Log.e("zhangping", "absolutePath1 = " + absolutePath);
-					absolutePath = absolutePath.replace(mExternalStoragePath.getAbsolutePath(),
-							"file:///sdcard");
-					Log.e("zhangping", "absolutePath2 = " + absolutePath);
+//					Log.e("zhangping", "absolutePath1 = " + absolutePath);
+					absolutePath = "file://" + absolutePath;
+//					Log.e("zhangping", "absolutePath2 = " + absolutePath);
 					mInternalThemePaths.add(absolutePath);
 				}
 			}
