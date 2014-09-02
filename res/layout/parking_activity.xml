@@ -2,39 +2,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+    
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/parking_background" />
 
     <RelativeLayout 
         android:id="@+id/rl_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+		style="@style/action_bar_background"
         >
 	    <Button
 	        android:id="@+id/btn_exit"
-	        style="@style/action_bar_item"
-	        android:layout_alignParentLeft="true"
-	        android:text="@string/exit" />
+	        style="@style/action_bar_back"
+	        android:layout_alignParentLeft="true"/>
 	
 	    <Button
 	        android:id="@+id/btn_set_background"
 	        style="@style/action_bar_item"
 	        android:layout_alignParentRight="true"
+	        android:background="@drawable/button_background_normal"
 	        android:text="@string/set_background" />
 	
 	    <Button
 	        android:id="@+id/btn_edit"
 	        style="@style/action_bar_item"
 	        android:layout_toLeftOf="@+id/btn_set_background"
+	        android:background="@drawable/button_background_pressed"
 	        android:text="@string/edit" />
     </RelativeLayout>
-    
-    <ImageView
-        android:id="@+id/iv_background"
-        android:layout_below="@+id/rl_bar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/default_background" />
 
     <ScrollView
         android:layout_below="@+id/rl_bar"

@@ -35,6 +35,16 @@
 	    <item name="android:layout_margin">0dip</item>
 	</style>
 	
+	<style name="action_bar_back" parent="action_bar_item">
+	    <item name="android:background">@drawable/back_normal</item>
+	</style>
+	
+	<style name="action_bar_background">
+	    <item name="android:layout_width">match_parent</item>
+	    <item name="android:layout_height">wrap_content</item>
+	    <item name="android:background">@drawable/bar_background</item>
+	</style>
+	
 	<style name="table_cell_image_text_view" parent="match_content">
 	    <item name="android:textSize">@dimen/table_cell_image_text_size</item>
 	    <item name="android:gravity">center_horizontal|bottom</item>

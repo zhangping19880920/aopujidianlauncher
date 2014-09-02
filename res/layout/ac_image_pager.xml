@@ -8,16 +8,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <Button
-        android:id="@+id/btn_exit"
-        style="@style/action_bar_item"
-        android:layout_alignParentLeft="true"
-        android:text="@string/exit" />
+    <RelativeLayout 
+        style="@style/action_bar_background"
+        >
+	    <Button
+	        android:id="@+id/btn_exit"
+	        style="@style/action_bar_back"
+	        android:layout_alignParentLeft="true"/>
         
-    <Spinner android:id="@+id/time_spinner"
-        style="@style/action_bar_item_size"
-        android:layout_alignParentRight="true"
-        android:drawSelectorOnTop="true"
-        android:prompt="@string/set_time"
-    />
+	    <Spinner android:id="@+id/time_spinner"
+	        style="@style/action_bar_item_size"
+	        android:layout_alignParentRight="true"
+	        android:drawSelectorOnTop="true"
+	        android:prompt="@string/set_time"
+	    />
+    </RelativeLayout>
+        
 </RelativeLayout>
