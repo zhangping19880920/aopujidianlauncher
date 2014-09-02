@@ -11,7 +11,7 @@
     <RelativeLayout 
         style="@style/action_bar_background"
         >
-	    <Button
+	    <ImageButton
 	        android:id="@+id/btn_exit"
 	        style="@style/action_bar_back"
 	        android:layout_alignParentLeft="true"/>

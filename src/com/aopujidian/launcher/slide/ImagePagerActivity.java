@@ -21,6 +21,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -55,6 +57,8 @@ public class ImagePagerActivity extends BaseActivity {
 	private static final String STATE_POSITION = "STATE_POSITION";
 
 	private static final String TAG = "ImagePagerActivity";
+	
+	private WakeLock mScreenLock;
 
 	private DisplayImageOptions mOptions;
 
@@ -82,6 +86,7 @@ public class ImagePagerActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_image_pager);
 		ViewUtils.inject(this);
+		mScreenLock = ((PowerManager)getSystemService(POWER_SERVICE)).newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK,TAG);
 		
 		mInterval = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).getInt(PrefsConfig.PREFS_KEY_INTERVAL, PrefsConfig.PREFS_INTERVAL_DEFAULT_VALUE);
 		
@@ -240,6 +245,30 @@ public class ImagePagerActivity extends BaseActivity {
 		@Override
 		public Parcelable saveState() {
 			return null;
+		}
+	}
+	
+	@Override
+	protected void onResume() {
+		keepScreen(true);
+		super.onResume();
+	}
+	
+	@Override
+	protected void onPause() {
+		keepScreen(false);
+		super.onPause();
+	}
+	
+	private void keepScreen(boolean keepScreen){
+		if (keepScreen) {	//保持屏幕亮
+			if (!mScreenLock.isHeld()) {
+				mScreenLock.acquire();
+			}
+		}else {				//不保持屏幕亮
+			if (mScreenLock.isHeld()) {
+				mScreenLock.release();
+			}
 		}
 	}
 }

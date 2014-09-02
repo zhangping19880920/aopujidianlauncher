@@ -29,7 +29,7 @@
 		            android:id="@+id/ib_top_first"
 		            style="@style/table_cell_image_button"
 		            android:scaleType="fitCenter"
-		            android:src="@drawable/icon_1"
+		            android:background="@drawable/icon_1"
 		            />
 		        <TextView 
 		            android:id="@+id/tv_top_first"
@@ -47,7 +47,7 @@
 		        <ImageButton 
 		            android:id="@+id/ib_top_second"
 		            style="@style/table_cell_image_button"
-		            android:src="@drawable/icon_2"
+		            android:background="@drawable/icon_2"
 		            />
 		        <TextView 
 		            android:id="@+id/tv_top_second"
@@ -65,7 +65,7 @@
 		        <ImageButton 
 		            android:id="@+id/ib_top_third"
 		            style="@style/table_cell_image_button"
-		            android:src="@drawable/icon_3"
+		            android:background="@drawable/icon_3"
 		            />
 		        <TextView 
 		            android:id="@+id/tv_top_third"
@@ -83,7 +83,7 @@
 		        <ImageButton 
 		            android:id="@+id/ib_top_fourth"
 		            style="@style/table_cell_image_button"
-		            android:src="@drawable/icon_4"
+		            android:background="@drawable/icon_4"
 		            />
 		        <TextView 
 		            android:id="@+id/tv_top_fourth"
@@ -109,7 +109,7 @@
 		        <ImageButton 
 		            android:id="@+id/ib_bottom_first"
 		            style="@style/table_cell_image_button"
-		            android:src="@drawable/icon_5"
+		            android:background="@drawable/icon_5"
 		            />
 		        <TextView 
 		            android:id="@+id/tv_bottom_first"
@@ -127,7 +127,7 @@
 		        <ImageButton 
 		            android:id="@+id/ib_bottom_second"
 		            style="@style/table_cell_image_button"
-		            android:src="@drawable/icon_6"
+		            android:background="@drawable/icon_6"
 		            />
 		        <TextView 
 		            android:id="@+id/tv_bottom_second"
@@ -145,7 +145,7 @@
 		        <ImageButton 
 		            android:id="@+id/ib_bottom_third"
 		            style="@style/table_cell_image_button"
-		            android:src="@drawable/icon_7"
+		            android:background="@drawable/icon_7"
 		            />
 		        <TextView 
 		            android:id="@+id/tv_bottom_third"
@@ -163,7 +163,7 @@
 		        <ImageButton 
 		            android:id="@+id/ib_bottom_fourth"
 		            style="@style/table_cell_image_button"
-		            android:src="@drawable/icon_8"
+		            android:background="@drawable/icon_8"
 		            />
 		        <TextView 
 		            android:id="@+id/tv_bottom_fourth"

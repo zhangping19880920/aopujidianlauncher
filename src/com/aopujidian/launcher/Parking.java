@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -32,12 +34,15 @@ public class Parking extends Activity {
 	
 	@ViewInject(R.id.tv_text)
 	private TextView mTextView;
+	
+	private WakeLock mScreenLock;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.parking_activity);
 		ViewUtils.inject(this);
+		mScreenLock = ((PowerManager)getSystemService(POWER_SERVICE)).newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK,TAG);
 		
 		String latText = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).getString(PrefsConfig.PREFS_KEY_PARKING, PrefsConfig.PREFS_PARKING_DEFAULT_VALUE);
 		if (null != latText && !TextUtils.isEmpty(latText)) {
@@ -101,5 +106,29 @@ public class Parking extends Activity {
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
+	@Override
+	protected void onResume() {
+		keepScreen(true);
+		super.onResume();
+	}
+	
+	@Override
+	protected void onPause() {
+		keepScreen(false);
+		super.onPause();
+	}
+	
+	private void keepScreen(boolean keepScreen){
+		if (keepScreen) {	//保持屏幕亮
+			if (!mScreenLock.isHeld()) {
+				mScreenLock.acquire();
+			}
+		}else {				//不保持屏幕亮
+			if (mScreenLock.isHeld()) {
+				mScreenLock.release();
+			}
+		}
 	}
 }

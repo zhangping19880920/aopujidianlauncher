@@ -17,14 +17,15 @@
     <RelativeLayout 
         style="@style/action_bar_background"
         >
-	    <Button
+	    <ImageButton
 	        android:id="@+id/btn_exit"
 	        style="@style/action_bar_back"
+	        android:src="@drawable/back_selector"
 	        android:layout_alignParentLeft="true"/>
 	
 	    <Button
 	        android:id="@+id/btn_start_slide"
-	        style="@style/action_bar_item"
+	        style="@style/text_button_item"
 	        android:background="@drawable/button_background_normal"
 	        android:layout_alignParentRight="true"
 	        android:text="@string/start_slide" />

@@ -62,4 +62,6 @@
     <dimen name="action_bar_item_witdh">144dip</dimen>
     <dimen name="action_bar_item_height">52dip</dimen>
     <dimen name="table_cell_image_text_size">21sp</dimen>
+    <dimen name="button_margin_left_right">10dip</dimen>
+    <dimen name="button_margin_top">10dip</dimen>
 </resources>

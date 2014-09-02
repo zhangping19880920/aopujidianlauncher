@@ -22,7 +22,7 @@
 	<style name="table_cell_image_button" parent="table_cell_size">
 	    <item name="android:scaleType">fitCenter</item>
 	    <item name="android:onClick">onClick</item>
-	    <item name="android:background">@android:color/transparent</item>
+	    <item name="android:src">@drawable/launcher_selector</item>
 	</style>
 	
 	<style name="action_bar_item_size">
@@ -30,13 +30,20 @@
 	    <item name="android:layout_height">@dimen/action_bar_item_height</item>
 	</style>
 	
-	<style name="action_bar_item" parent="action_bar_item_size">
-	    <item name="android:background">@android:color/transparent</item>
+	<style name="action_bar_item" parent="wrap_content">
 	    <item name="android:layout_margin">0dip</item>
+	    <item name="android:src">@drawable/back_selector</item>
 	</style>
 	
-	<style name="action_bar_back" parent="action_bar_item">
+	<style name="text_button_item" parent="wrap_content">
+	    <item name="android:padding">0dip</item>
+	    <item name="android:textColor">@drawable/text_selector</item>
+	    <item name="android:textSize">@dimen/table_cell_image_text_size</item>
+	</style>
+	
+	<style name="action_bar_back" parent="wrap_content">
 	    <item name="android:background">@drawable/back_normal</item>
+	    <item name="android:src">@drawable/back_selector</item>
 	</style>
 	
 	<style name="action_bar_background">
