@@ -10,12 +10,14 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.aopujidian.launcher.utils.PrefsConfig;
 import com.lidroid.xutils.ViewUtils;
@@ -53,6 +55,14 @@ public class Parking extends Activity {
 		} else {
 			edit(mEditButton);
 		}
+		
+		mEdittext.setOnEditorActionListener(new OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				edit(mEditButton);
+				return false;
+			}
+		});
 	}
 
 	@OnClick(R.id.btn_exit)
