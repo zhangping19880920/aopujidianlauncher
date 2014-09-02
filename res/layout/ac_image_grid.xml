@@ -22,6 +22,7 @@
 	    <Button
 	        android:id="@+id/btn_start_slide"
 	        style="@style/text_button_item"
+	        android:layout_marginRight="@dimen/button_margin_left_right"
 	        android:background="@drawable/button_background_normal"
 	        android:layout_alignParentRight="true"
 	        android:text="@string/start_slide" />

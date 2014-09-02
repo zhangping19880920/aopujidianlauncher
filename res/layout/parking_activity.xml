@@ -15,10 +15,18 @@
 		style="@style/action_bar_background"
 		android:gravity="center_vertical"
         >
+        
+	    <ImageButton
+	        android:id="@+id/btn_exit"
+	        style="@style/action_bar_back"
+	        android:layout_alignTop="@+id/btn_set_background"
+	        android:layout_alignBottom="@+id/btn_set_background"
+	        android:layout_alignParentLeft="true"/>
 	
 	    <Button
 	        android:id="@+id/btn_set_background"
 	        style="@style/text_button_item"
+	        android:layout_marginRight="@dimen/button_margin_left_right"
 	        android:layout_alignParentRight="true"
 	        android:background="@drawable/button_background_normal"
 	        android:text="@string/set_background" />
@@ -30,13 +38,6 @@
 	        android:layout_toLeftOf="@+id/btn_set_background"
 	        android:background="@drawable/button_background_pressed"
 	        android:text="@string/edit" />
-	    
-	    <ImageButton
-	        android:id="@+id/btn_exit"
-	        style="@style/action_bar_back"
-	        android:layout_alignTop="@+id/btn_set_background"
-	        android:layout_alignBottom="@+id/btn_set_background"
-	        android:layout_alignParentLeft="true"/>
     </RelativeLayout>
 
     <ScrollView

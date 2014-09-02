@@ -44,6 +44,7 @@
 	<style name="action_bar_back" parent="wrap_content">
 	    <item name="android:background">@drawable/back_normal</item>
 	    <item name="android:src">@drawable/back_selector</item>
+	    <item name="android:layout_marginLeft">@dimen/button_margin_left_right</item>
 	</style>
 	
 	<style name="action_bar_background">
