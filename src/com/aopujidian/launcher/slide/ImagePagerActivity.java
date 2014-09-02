@@ -48,6 +48,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
@@ -124,7 +125,7 @@ public class ImagePagerActivity extends BaseActivity {
 			.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
 			.bitmapConfig(Bitmap.Config.RGB_565)
 			.considerExifParams(true)
-			.displayer(new FadeInBitmapDisplayer(500))
+			.displayer(new SimpleBitmapDisplayer())
 			.build();
 
 		mPager = (ViewPager) findViewById(R.id.pager);

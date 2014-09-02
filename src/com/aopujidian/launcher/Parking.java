@@ -35,6 +35,9 @@ public class Parking extends Activity {
 	@ViewInject(R.id.tv_text)
 	private TextView mTextView;
 	
+	@ViewInject(R.id.btn_edit)
+	private TextView mEditButton;
+	
 	private WakeLock mScreenLock;
 
 	@Override
@@ -47,6 +50,8 @@ public class Parking extends Activity {
 		String latText = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).getString(PrefsConfig.PREFS_KEY_PARKING, PrefsConfig.PREFS_PARKING_DEFAULT_VALUE);
 		if (null != latText && !TextUtils.isEmpty(latText)) {
 			mTextView.setText(latText);
+		} else {
+			edit(mEditButton);
 		}
 	}
 
