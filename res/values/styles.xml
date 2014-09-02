@@ -36,7 +36,7 @@
 	</style>
 	
 	<style name="text_button_item" parent="wrap_content">
-	    <item name="android:padding">0dip</item>
+	    <item name="android:padding">5dip</item>
 	    <item name="android:textColor">@drawable/text_selector</item>
 	    <item name="android:textSize">@dimen/table_cell_image_text_size</item>
 	</style>

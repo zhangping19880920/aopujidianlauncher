@@ -16,12 +16,8 @@
 
     <RelativeLayout 
         style="@style/action_bar_background"
+        android:gravity="center_vertical"
         >
-	    <ImageButton
-	        android:id="@+id/btn_exit"
-	        style="@style/action_bar_back"
-	        android:src="@drawable/back_selector"
-	        android:layout_alignParentLeft="true"/>
 	
 	    <Button
 	        android:id="@+id/btn_start_slide"
@@ -29,6 +25,14 @@
 	        android:background="@drawable/button_background_normal"
 	        android:layout_alignParentRight="true"
 	        android:text="@string/start_slide" />
+	    
+	    <ImageButton
+	        android:id="@+id/btn_exit"
+	        style="@style/action_bar_back"
+	        android:layout_alignTop="@+id/btn_start_slide"
+	        android:layout_alignBottom="@+id/btn_start_slide"
+	        android:src="@drawable/back_selector"
+	        android:layout_alignParentLeft="true"/>
     </RelativeLayout>
 
 </RelativeLayout>

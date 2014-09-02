@@ -55,7 +55,7 @@
     
     <dimen name="grid_view_padding">4dip</dimen>
     <dimen name="time_spinner_width">100dip</dimen>
-    <dimen name="parking_text_size">40sp</dimen>
+    <dimen name="parking_text_size">48sp</dimen>
     <dimen name="table_cell_margin">5dip</dimen>
     <dimen name="table_cell_width">200dip</dimen>
     <dimen name="table_cell_height">200dip</dimen>

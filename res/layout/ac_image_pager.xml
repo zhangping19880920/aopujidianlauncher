@@ -17,10 +17,11 @@
 	        android:layout_alignParentLeft="true"/>
         
 	    <Spinner android:id="@+id/time_spinner"
-	        style="@style/action_bar_item_size"
+	        style="@style/wrap_content"
 	        android:layout_alignParentRight="true"
 	        android:drawSelectorOnTop="true"
 	        android:prompt="@string/set_time"
+	        android:background="@drawable/button_background_normal"
 	    />
     </RelativeLayout>
         
