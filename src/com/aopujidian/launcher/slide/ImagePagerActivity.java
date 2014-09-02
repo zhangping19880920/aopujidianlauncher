@@ -29,13 +29,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Gallery.LayoutParams;
+import android.widget.ViewSwitcher.ViewFactory;
 
 import com.aopujidian.launcher.R;
 import com.aopujidian.launcher.slide.ImageGridActivity.Extra;
@@ -46,6 +57,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
@@ -70,6 +82,9 @@ public class ImagePagerActivity extends BaseActivity {
 	@ViewInject(R.id.time_spinner)
 	private Spinner mSpinner;
 	
+	@ViewInject(R.id.switcher)
+	private ImageSwitcher mSwitcher;
+	
 	private static final int MSG_SHOW_NEXT = 100;
 	
 	private Handler mHandler = new Handler(){
@@ -87,7 +102,7 @@ public class ImagePagerActivity extends BaseActivity {
 	}
 	
     protected void showNext() {
-    	Log.e(TAG, "show Next");
+    	Log.e(TAG, "show Next: " + mInterval);
     	mHandler.removeMessages(MSG_SHOW_NEXT);
     	mHandler.sendEmptyMessageDelayed(MSG_SHOW_NEXT, mInterval);
     	int total = mPager.getAdapter().getCount();
@@ -97,9 +112,44 @@ public class ImagePagerActivity extends BaseActivity {
 		} else {
 			currentItem = 0;
 		}
+    	
     	mPager.setCurrentItem(currentItem, true);
+    	
+    	
+    	int childCount = mSwitcher.getChildCount();
+    	Log.e(TAG, "childCount = " + childCount);
+    	
+    	mImageLoader.loadImage(imageUrls[index++], new ImageLoadingListener() {
+			
+			@Override
+			public void onLoadingStarted(String arg0, View arg1) {
+				
+			}
+			
+			@Override
+			public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+				
+			}
+			
+			@Override
+			public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
+				ImageView image = (ImageView)mSwitcher.getNextView();
+		        image.setImageBitmap(arg2);
+		        mSwitcher.showNext();
+			}
+			
+			@Override
+			public void onLoadingCancelled(String arg0, View arg1) {
+				
+			}
+		});
+    	
 	}
 	
+    String[] imageUrls;
+    
+    int index;
+    
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -111,7 +161,8 @@ public class ImagePagerActivity extends BaseActivity {
 		
 		Bundle bundle = getIntent().getExtras();
 		assert bundle != null;
-		String[] imageUrls = bundle.getStringArray(Extra.IMAGES);
+//		STRING[] imageUrls = bundle.getStringArray(Extra.IMAGES);
+		imageUrls = bundle.getStringArray(Extra.IMAGES);
 		for (int i = 0; i < imageUrls.length; i++) {
 			Log.e(TAG, "imageUrls[ " + i + " ] = " + imageUrls[i]);
 		}
@@ -125,8 +176,41 @@ public class ImagePagerActivity extends BaseActivity {
 			.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
 			.bitmapConfig(Bitmap.Config.RGB_565)
 			.considerExifParams(true)
-			.displayer(new SimpleBitmapDisplayer())
+			.displayer(new FadeInBitmapDisplayer(2000))
 			.build();
+		
+		mSwitcher.setFactory(new ViewFactory() {
+			@Override
+			public View makeView() {
+				ImageView i = new ImageView(ImagePagerActivity.this);
+		        i.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+		        i.setLayoutParams(new ImageSwitcher.LayoutParams(LayoutParams.MATCH_PARENT,
+		                LayoutParams.MATCH_PARENT));
+		        return i;
+			}
+		});
+
+		TranslateAnimation translate = new TranslateAnimation(0,6,0,6);
+        translate.setDuration(3000);
+        ScaleAnimation scale = new ScaleAnimation(1.05f, 1.25f, 1.05f, 1.25f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); 
+        scale.setDuration(3000);
+        final AnimationSet animationSet = new AnimationSet(false);
+        animationSet.addAnimation(translate);
+        animationSet.addAnimation(scale);
+        Animation fadeIn = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+        animationSet.addAnimation(fadeIn);
+        mSwitcher.setInAnimation(animationSet);
+        
+        TranslateAnimation translateOut = new TranslateAnimation(6,12,6,12);
+        translateOut.setDuration(3000);
+        ScaleAnimation scaleOut = new ScaleAnimation(1.25f, 1.5f, 1.25f, 1.5f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); 
+        scaleOut.setDuration(3000);
+        final AnimationSet animationSetOut = new AnimationSet(false);
+        animationSetOut.addAnimation(translateOut);
+        animationSetOut.addAnimation(scaleOut);
+        Animation fadeOut = AnimationUtils.loadAnimation(this, android.R.anim.fade_out);
+        animationSetOut.addAnimation(fadeOut);
+        mSwitcher.setOutAnimation(animationSetOut);
 
 		mPager = (ViewPager) findViewById(R.id.pager);
 		mPager.setAdapter(new ImagePagerAdapter(imageUrls));

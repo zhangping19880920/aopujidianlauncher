@@ -118,4 +118,9 @@ public class MainActivity extends Activity {
 			Toast.makeText(getApplicationContext(), msg, 0).show();
 		}
     }
+    
+    @Override
+    public void onBackPressed() {
+//    	super.onBackPressed();
+    }
 }
