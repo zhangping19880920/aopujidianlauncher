@@ -33,6 +33,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.aopujidian.launcher.R;
 import com.lidroid.xutils.ViewUtils;
@@ -89,14 +90,6 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 					mSelectedPosition.add(position);
 					holder.indication.setVisibility(View.VISIBLE);
 				}
-				
-				Iterator<Integer> iterator = mSelectedPosition.iterator();
-				Log.e(TAG, "selected start------------");
-				while (iterator.hasNext()) {
-					Integer integer = (Integer) iterator.next();
-					Log.e(TAG, "integer: " + integer);
-				}
-				Log.e(TAG, "selected end------------");
 			}
 		});
 		
@@ -115,14 +108,9 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 	public void exit(View view) {
 		finish();
 	}
-	
-	
-	@OnClick(R.id.btn_start_slide)
-	public void startSlide(View view) {
-		startImagePagerActivity();
-	}
 
-	private void startImagePagerActivity() {
+	@OnClick(R.id.btn_start_slide)
+	public void startImagePagerActivity(View view) {
 		//TODO
 		List<String> selectUrls = new ArrayList<String>();
 		Iterator<Integer> iterator = mSelectedPosition.iterator();
@@ -131,7 +119,10 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 			selectUrls.add(mImageUrls[integer]);
 		}
 		String[] urls = selectUrls.toArray(new String[0]);
-		Log.e(TAG, "urls = " + urls);
+		if (null == urls || 0 == urls.length) {
+			Toast.makeText(getApplicationContext(), R.string.no_selected_image, Toast.LENGTH_SHORT).show();
+			return;
+		}
 		Intent intent = new Intent(this, ImagePagerActivity.class);
 		intent.putExtra(Extra.IMAGES, urls);
 		startActivity(intent);

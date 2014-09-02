@@ -75,11 +75,29 @@ public class ImagePagerActivity extends BaseActivity {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case MSG_SHOW_NEXT:
-				
+				showNext();
 				break;
 			}
 		};
 	};
+	
+	private void stopShow(){
+		mHandler.removeMessages(MSG_SHOW_NEXT);
+	}
+	
+    protected void showNext() {
+    	Log.e(TAG, "show Next");
+    	mHandler.removeMessages(MSG_SHOW_NEXT);
+    	mHandler.sendEmptyMessageDelayed(MSG_SHOW_NEXT, mInterval);
+    	int total = mPager.getAdapter().getCount();
+    	int currentItem = mPager.getCurrentItem();
+    	if (currentItem < total - 1) {
+    		currentItem++;
+		} else {
+			currentItem = 0;
+		}
+    	mPager.setCurrentItem(currentItem, true);
+	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -103,7 +121,7 @@ public class ImagePagerActivity extends BaseActivity {
 			.resetViewBeforeLoading(true)
 			.cacheInMemory(true)
 			.cacheOnDisk(true)
-			.imageScaleType(ImageScaleType.EXACTLY)
+			.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
 			.bitmapConfig(Bitmap.Config.RGB_565)
 			.considerExifParams(true)
 			.displayer(new FadeInBitmapDisplayer(500))
@@ -111,7 +129,7 @@ public class ImagePagerActivity extends BaseActivity {
 
 		mPager = (ViewPager) findViewById(R.id.pager);
 		mPager.setAdapter(new ImagePagerAdapter(imageUrls));
-		
+		mHandler.sendEmptyMessageDelayed(MSG_SHOW_NEXT, mInterval);
 		
 		mSpinner = (Spinner) findViewById(R.id.time_spinner);
 		final int[] time_inter_values = getResources().getIntArray(R.array.time_interval_value);
@@ -127,6 +145,7 @@ public class ImagePagerActivity extends BaseActivity {
 				break;
 			}
 		}
+        
         mSpinner.setSelection(i);
         mSpinner.setOnItemSelectedListener(
                 new OnItemSelectedListener() {
@@ -138,20 +157,15 @@ public class ImagePagerActivity extends BaseActivity {
                         Editor edit = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).edit();
             			edit.putInt(PrefsConfig.PREFS_KEY_INTERVAL, mInterval);
             			edit.commit();
-            			
-            			//TODO重新记时
-            			mHandler.removeMessages(MSG_SHOW_NEXT);
-            			mHandler.sendEmptyMessage(MSG_SHOW_NEXT);
                     }
 
                     public void onNothingSelected(AdapterView<?> parent) {
-                    	
                         showToast("Spinner1: unselected");
                     }
                 });
 	}
 	
-    void showToast(CharSequence msg) {
+	void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -257,6 +271,7 @@ public class ImagePagerActivity extends BaseActivity {
 	@Override
 	protected void onPause() {
 		keepScreen(false);
+		stopShow();
 		super.onPause();
 	}
 	
