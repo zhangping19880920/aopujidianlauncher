@@ -79,7 +79,7 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 		.build();
 		
 		mGridView = (GridView) findViewById(R.id.gridview);
-		((GridView) mGridView).setAdapter(new ImageAdapter());
+		mGridView.setAdapter(new ImageAdapter());
 		mGridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -98,7 +98,7 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 		if (isMount) {
 			new LoadImageTask(getApplicationContext(), new LoadImageTask.LoadImageListener() {
 				@Override
-				public void onLoadImageListener(String[] result) {
+				public void onLoadImageFinish(String[] result) {
 					mImageUrls = result;
 					if (null != mGridView) {
 						((ImageAdapter)mGridView.getAdapter()).notifyDataSetChanged();

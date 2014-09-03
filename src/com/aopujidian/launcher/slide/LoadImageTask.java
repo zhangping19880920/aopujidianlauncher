@@ -13,7 +13,7 @@ import android.widget.Toast;
 public class LoadImageTask extends AsyncTask<Void, Integer, Void> {
 	
 	public interface LoadImageListener {
-		public void onLoadImageListener(String[] result);
+		public void onLoadImageFinish(String[] result);
 	}
 
 	private List<String> mInternalThemePaths = new ArrayList<String>();
@@ -39,7 +39,7 @@ public class LoadImageTask extends AsyncTask<Void, Integer, Void> {
 		// TODO
 		if (null != mLoadImageListener) {
 			String[] images = (String[]) mInternalThemePaths.toArray(new String[0]);
-			mLoadImageListener.onLoadImageListener(images);
+			mLoadImageListener.onLoadImageFinish(images);
 		}
 		Toast.makeText(mContext, "load ok", Toast.LENGTH_SHORT).show();
 		super.onPostExecute(result);

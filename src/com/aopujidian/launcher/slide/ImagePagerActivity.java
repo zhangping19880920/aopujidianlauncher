@@ -51,9 +51,6 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
  */
 public class ImagePagerActivity extends BaseActivity {
-
-	private static final String STATE_POSITION = "STATE_POSITION";
-
 	private static final String TAG = "ImagePagerActivity";
 	
 	private WakeLock mScreenLock;
