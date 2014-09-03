@@ -10,7 +10,6 @@
         android:layout_height="match_parent"
         android:scaleType="centerInside"
         android:layout_gravity="center"
-        android:background="@color/color_2"
         android:contentDescription="@string/descr_image" />
 
     <ProgressBar

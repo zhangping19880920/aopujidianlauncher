@@ -20,29 +20,15 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Gallery.LayoutParams;
@@ -58,7 +44,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
@@ -75,9 +60,11 @@ public class ImagePagerActivity extends BaseActivity {
 
 	private DisplayImageOptions mOptions;
 
-	private ViewPager mPager;
-	
 	private int mInterval;
+	
+	private String[] imageUrls;
+    
+	private int index;
 	
 	@ViewInject(R.id.time_spinner)
 	private Spinner mSpinner;
@@ -105,36 +92,43 @@ public class ImagePagerActivity extends BaseActivity {
     	Log.e(TAG, "show Next: " + mInterval);
     	mHandler.removeMessages(MSG_SHOW_NEXT);
     	mHandler.sendEmptyMessageDelayed(MSG_SHOW_NEXT, mInterval);
-    	int total = mPager.getAdapter().getCount();
-    	int currentItem = mPager.getCurrentItem();
-    	if (currentItem < total - 1) {
-    		currentItem++;
-		} else {
-			currentItem = 0;
-		}
     	
-    	mPager.setCurrentItem(currentItem, true);
+    	index = index % imageUrls.length;
     	
-    	
-    	int childCount = mSwitcher.getChildCount();
-    	Log.e(TAG, "childCount = " + childCount);
-    	
-    	mImageLoader.loadImage(imageUrls[index++], new ImageLoadingListener() {
+    	mImageLoader.loadImage(imageUrls[index], mOptions, new ImageLoadingListener() {
 			
 			@Override
-			public void onLoadingStarted(String arg0, View arg1) {
+			public void onLoadingStarted(String imageUri, View view) {
 				
 			}
 			
 			@Override
-			public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
-				
+			public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+				String message = null;
+				switch (failReason.getType()) {
+					case IO_ERROR:
+						message = "Input/Output error";
+						break;
+					case DECODING_ERROR:
+						message = "Image can't be decoded";
+						break;
+					case NETWORK_DENIED:
+						message = "Downloads are denied";
+						break;
+					case OUT_OF_MEMORY:
+						message = "Out Of Memory error";
+						break;
+					case UNKNOWN:
+						message = "Unknown error";
+						break;
+				}
+				Toast.makeText(ImagePagerActivity.this, message, Toast.LENGTH_SHORT).show();
 			}
 			
 			@Override
-			public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
+			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 				ImageView image = (ImageView)mSwitcher.getNextView();
-		        image.setImageBitmap(arg2);
+		        image.setImageBitmap(loadedImage);
 		        mSwitcher.showNext();
 			}
 			
@@ -144,11 +138,8 @@ public class ImagePagerActivity extends BaseActivity {
 			}
 		});
     	
+    	index++;
 	}
-	
-    String[] imageUrls;
-    
-    int index;
     
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -176,7 +167,7 @@ public class ImagePagerActivity extends BaseActivity {
 			.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
 			.bitmapConfig(Bitmap.Config.RGB_565)
 			.considerExifParams(true)
-			.displayer(new FadeInBitmapDisplayer(2000))
+			.displayer(new SimpleBitmapDisplayer())
 			.build();
 		
 		mSwitcher.setFactory(new ViewFactory() {
@@ -190,31 +181,11 @@ public class ImagePagerActivity extends BaseActivity {
 			}
 		});
 
-		TranslateAnimation translate = new TranslateAnimation(0,6,0,6);
-        translate.setDuration(3000);
-        ScaleAnimation scale = new ScaleAnimation(1.05f, 1.25f, 1.05f, 1.25f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); 
-        scale.setDuration(3000);
-        final AnimationSet animationSet = new AnimationSet(false);
-        animationSet.addAnimation(translate);
-        animationSet.addAnimation(scale);
-        Animation fadeIn = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
-        animationSet.addAnimation(fadeIn);
-        mSwitcher.setInAnimation(animationSet);
-        
-        TranslateAnimation translateOut = new TranslateAnimation(6,12,6,12);
-        translateOut.setDuration(3000);
-        ScaleAnimation scaleOut = new ScaleAnimation(1.25f, 1.5f, 1.25f, 1.5f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f); 
-        scaleOut.setDuration(3000);
-        final AnimationSet animationSetOut = new AnimationSet(false);
-        animationSetOut.addAnimation(translateOut);
-        animationSetOut.addAnimation(scaleOut);
-        Animation fadeOut = AnimationUtils.loadAnimation(this, android.R.anim.fade_out);
-        animationSetOut.addAnimation(fadeOut);
-        mSwitcher.setOutAnimation(animationSetOut);
+		Animations.setAnimationDuration(mInterval);
+        mSwitcher.setInAnimation(Animations.inAnimation(getApplicationContext()));
+        mSwitcher.setOutAnimation(Animations.outAnimation(getApplicationContext()));
 
-		mPager = (ViewPager) findViewById(R.id.pager);
-		mPager.setAdapter(new ImagePagerAdapter(imageUrls));
-		mHandler.sendEmptyMessageDelayed(MSG_SHOW_NEXT, mInterval);
+		showNext();
 		
 		mSpinner = (Spinner) findViewById(R.id.time_spinner);
 		final int[] time_inter_values = getResources().getIntArray(R.array.time_interval_value);
@@ -238,6 +209,7 @@ public class ImagePagerActivity extends BaseActivity {
                             AdapterView<?> parent, View view, int position, long id) {
                     	int value = time_inter_values[position];
                     	mInterval = value;
+                    	Animations.setAnimationDuration(mInterval);
 //                        showToast("Spinner1: position=" + position + " value=" + value);
                         Editor edit = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).edit();
             			edit.putInt(PrefsConfig.PREFS_KEY_INTERVAL, mInterval);
@@ -254,97 +226,10 @@ public class ImagePagerActivity extends BaseActivity {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		outState.putInt(STATE_POSITION, mPager.getCurrentItem());
-	}
 	
 	@OnClick(R.id.btn_exit)
 	public void exit(View view) {
 		finish();
-	}
-
-	private class ImagePagerAdapter extends PagerAdapter {
-
-		private String[] images;
-		private LayoutInflater inflater;
-
-		ImagePagerAdapter(String[] images) {
-			this.images = images;
-			inflater = getLayoutInflater();
-		}
-
-		@Override
-		public void destroyItem(ViewGroup container, int position, Object object) {
-			container.removeView((View) object);
-		}
-
-		@Override
-		public int getCount() {
-			return images.length;
-		}
-
-		@Override
-		public Object instantiateItem(ViewGroup view, int position) {
-			View imageLayout = inflater.inflate(R.layout.item_pager_image, view, false);
-			assert imageLayout != null;
-			ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
-			final ProgressBar spinner = (ProgressBar) imageLayout.findViewById(R.id.loading);
-
-			mImageLoader.displayImage(images[position], imageView, mOptions, new SimpleImageLoadingListener() {
-				@Override
-				public void onLoadingStarted(String imageUri, View view) {
-					spinner.setVisibility(View.VISIBLE);
-				}
-
-				@Override
-				public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-					String message = null;
-					switch (failReason.getType()) {
-						case IO_ERROR:
-							message = "Input/Output error";
-							break;
-						case DECODING_ERROR:
-							message = "Image can't be decoded";
-							break;
-						case NETWORK_DENIED:
-							message = "Downloads are denied";
-							break;
-						case OUT_OF_MEMORY:
-							message = "Out Of Memory error";
-							break;
-						case UNKNOWN:
-							message = "Unknown error";
-							break;
-					}
-					Toast.makeText(ImagePagerActivity.this, message, Toast.LENGTH_SHORT).show();
-
-					spinner.setVisibility(View.GONE);
-				}
-
-				@Override
-				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-					spinner.setVisibility(View.GONE);
-				}
-			});
-
-			view.addView(imageLayout, 0);
-			return imageLayout;
-		}
-
-		@Override
-		public boolean isViewFromObject(View view, Object object) {
-			return view.equals(object);
-		}
-
-		@Override
-		public void restoreState(Parcelable state, ClassLoader loader) {
-		}
-
-		@Override
-		public Parcelable saveState() {
-			return null;
-		}
 	}
 	
 	@Override
