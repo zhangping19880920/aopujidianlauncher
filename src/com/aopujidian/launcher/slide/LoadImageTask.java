@@ -36,12 +36,11 @@ public class LoadImageTask extends AsyncTask<Void, Integer, Void> {
 
 	@Override
 	protected void onPostExecute(Void result) {
-		// TODO
 		if (null != mLoadImageListener) {
 			String[] images = (String[]) mInternalThemePaths.toArray(new String[0]);
 			mLoadImageListener.onLoadImageFinish(images);
 		}
-		Toast.makeText(mContext, "load ok", Toast.LENGTH_SHORT).show();
+//		Toast.makeText(mContext, "load ok", Toast.LENGTH_SHORT).show();
 		super.onPostExecute(result);
 	}
 
