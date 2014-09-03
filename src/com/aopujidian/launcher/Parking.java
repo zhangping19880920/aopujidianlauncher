@@ -19,11 +19,14 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.aopujidian.launcher.slide.BaseActivity;
 import com.aopujidian.launcher.utils.CropImage;
+import com.aopujidian.launcher.utils.ExternalStorageUtil;
 import com.aopujidian.launcher.utils.PrefsConfig;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 public class Parking extends BaseActivity {
 	
@@ -74,12 +77,17 @@ public class Parking extends BaseActivity {
 		});
 		
 		mOptions = new DisplayImageOptions.Builder()
-		.showImageOnLoading(R.drawable.image_loading)
+		.showImageOnLoading(R.drawable.action_background)
 		.showImageForEmptyUri(R.drawable.parking_background)
 		.showImageOnFail(R.drawable.parking_background)
 		.considerExifParams(true)
 		.bitmapConfig(Bitmap.Config.RGB_565)
 		.build();
+		
+		boolean isSetBackground = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).getBoolean(PrefsConfig.PREFS_KEY_PARKING_BACKGROUND, false);
+		if (isSetBackground) {
+			reallySetBackground();
+		}
 	}
 
 	@OnClick(R.id.btn_exit)
@@ -87,8 +95,20 @@ public class Parking extends BaseActivity {
 		finish();
 	}
 
+	@OnClick(R.id.btn_set_default_background)
+	public void setDefaultBackground(View view){
+		Editor edit = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).edit();
+		edit.putBoolean(PrefsConfig.PREFS_KEY_PARKING_BACKGROUND, false);
+		edit.commit();
+		mBackgroundImageView.setImageResource(R.drawable.parking_background);
+	}
+	
 	@OnClick(R.id.btn_set_background)
 	public void setBackground(View view) {
+		boolean isMount = ExternalStorageUtil.isMount(getApplicationContext());
+		if (!isMount) {
+			return;
+		}
 		int width = mBackgroundImageView.getWidth();
 		int height = mBackgroundImageView.getHeight();
 		width = (width == 0 ? DEFAULT_WIDTH : width);
@@ -127,13 +147,42 @@ public class Parking extends BaseActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (PHOTO_REQUEST_CUT == requestCode) {
-			if(null != CropImage.getImageUri()){
-				String url = CropImage.getImageUri().toString();
-		        mImageLoader.displayImage(url, mBackgroundImageView, mOptions);
-			}
+		if (PHOTO_REQUEST_CUT == requestCode && RESULT_OK == resultCode && null != data) {
+			reallySetBackground();
 		}
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	private void reallySetBackground() {
+		if(null != CropImage.getImageUri()){
+			String url = CropImage.getImageUri().toString();
+		    mImageLoader.displayImage(url, mBackgroundImageView, mOptions, new ImageLoadingListener() {
+				
+				@Override
+				public void onLoadingStarted(String arg0, View arg1) {
+					
+				}
+				
+				@Override
+				public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+					
+				}
+				
+				@Override
+				public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
+					
+				}
+				
+				@Override
+				public void onLoadingCancelled(String arg0, View arg1) {
+					
+				}
+			});
+		    
+		    Editor edit = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).edit();
+		    edit.putBoolean(PrefsConfig.PREFS_KEY_PARKING_BACKGROUND, true);
+		    edit.commit();
+		}
 	}
 	
 	@Override
@@ -149,11 +198,11 @@ public class Parking extends BaseActivity {
 	}
 	
 	private void keepScreen(boolean keepScreen){
-		if (keepScreen) {	//保持屏幕亮
+		if (keepScreen) {	//keep screen on
 			if (!mScreenLock.isHeld()) {
 				mScreenLock.acquire();
 			}
-		}else {				//不保持屏幕亮
+		}else {				//keep screen off
 			if (mScreenLock.isHeld()) {
 				mScreenLock.release();
 			}

@@ -10,7 +10,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 public class CropImage {
-	private static final String IMAGE_FILE_LOCATION = "file:///sdcard/temp.jpg";
+	private static final String IMAGE_FILE_LOCATION = "file:///sdcard/.temp.jpg";
 	
 	private static final Uri IMAGE_URI = Uri.parse(IMAGE_FILE_LOCATION);
 	

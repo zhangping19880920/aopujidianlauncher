@@ -36,6 +36,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.aopujidian.launcher.R;
+import com.aopujidian.launcher.utils.ExternalStorageUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -93,15 +94,18 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 			}
 		});
 		
-		new LoadImageTask(getApplicationContext(), new LoadImageTask.LoadImageListener() {
-			@Override
-			public void onLoadImageListener(String[] result) {
-				mImageUrls = result;
-				if (null != mGridView) {
-					((ImageAdapter)mGridView.getAdapter()).notifyDataSetChanged();
+		boolean isMount = ExternalStorageUtil.isMount(getApplicationContext());
+		if (isMount) {
+			new LoadImageTask(getApplicationContext(), new LoadImageTask.LoadImageListener() {
+				@Override
+				public void onLoadImageListener(String[] result) {
+					mImageUrls = result;
+					if (null != mGridView) {
+						((ImageAdapter)mGridView.getAdapter()).notifyDataSetChanged();
+					}
 				}
-			}
-		}).execute();
+			}).execute();
+		}
 	}
 	
 	@OnClick(R.id.btn_exit)
@@ -111,7 +115,10 @@ public class ImageGridActivity extends AbsListViewBaseActivity {
 
 	@OnClick(R.id.btn_start_slide)
 	public void startImagePagerActivity(View view) {
-		//TODO
+		boolean isMount = ExternalStorageUtil.isMount(getApplicationContext());
+		if (!isMount) {
+			return;
+		}
 		List<String> selectUrls = new ArrayList<String>();
 		Iterator<Integer> iterator = mSelectedPosition.iterator();
 		while (iterator.hasNext()) {
