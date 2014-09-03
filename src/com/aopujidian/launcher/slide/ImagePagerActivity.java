@@ -185,8 +185,6 @@ public class ImagePagerActivity extends BaseActivity {
         mSwitcher.setInAnimation(Animations.inAnimation(getApplicationContext()));
         mSwitcher.setOutAnimation(Animations.outAnimation(getApplicationContext()));
 
-		showNext();
-		
 		mSpinner = (Spinner) findViewById(R.id.time_spinner);
 		final int[] time_inter_values = getResources().getIntArray(R.array.time_interval_value);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -234,6 +232,7 @@ public class ImagePagerActivity extends BaseActivity {
 	
 	@Override
 	protected void onResume() {
+		showNext();
 		keepScreen(true);
 		super.onResume();
 	}

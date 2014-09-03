@@ -57,7 +57,7 @@ public class MyApplication extends Application {
 		final int maxWidth = 800;
 		final int maxHeight = 1280;
 		final int MB = 1024 * 1024; 
-		File cacheDir = StorageUtils.getOwnCacheDirectory(context, "imageloader/Cache");
+		File cacheDir = StorageUtils.getOwnCacheDirectory(context, ".imageloader/.Cache");
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
 				.memoryCacheExtraOptions(maxWidth, maxHeight) // max width, max height，即保存的每个缓存文件的最大长宽
 				.threadPriority(Thread.NORM_PRIORITY - 2)

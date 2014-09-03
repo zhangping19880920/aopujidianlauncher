@@ -1,6 +1,5 @@
 package com.aopujidian.launcher;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -19,14 +17,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.aopujidian.launcher.slide.BaseActivity;
+import com.aopujidian.launcher.utils.CropImage;
 import com.aopujidian.launcher.utils.PrefsConfig;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
-public class Parking extends Activity {
+public class Parking extends BaseActivity {
 	
 	private static final String TAG = "Parking";
+	
+	private static final int DEFAULT_WIDTH = 640;
+	
+	private static final int DEFAULT_HEIGHT = 400;
+	
+	private static final int PHOTO_REQUEST_CUT = 100;
 	
 	@ViewInject(R.id.iv_background)
 	private ImageView mBackgroundImageView;
@@ -41,6 +48,8 @@ public class Parking extends Activity {
 	private TextView mEditButton;
 	
 	private WakeLock mScreenLock;
+	
+	private DisplayImageOptions mOptions;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,14 @@ public class Parking extends Activity {
 				return false;
 			}
 		});
+		
+		mOptions = new DisplayImageOptions.Builder()
+		.showImageOnLoading(R.drawable.image_loading)
+		.showImageForEmptyUri(R.drawable.parking_background)
+		.showImageOnFail(R.drawable.parking_background)
+		.considerExifParams(true)
+		.bitmapConfig(Bitmap.Config.RGB_565)
+		.build();
 	}
 
 	@OnClick(R.id.btn_exit)
@@ -72,19 +89,15 @@ public class Parking extends Activity {
 
 	@OnClick(R.id.btn_set_background)
 	public void setBackground(View view) {
-		Log.e(TAG, "setBackground");
-
-		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-		intent.addCategory(Intent.CATEGORY_OPENABLE);
-		intent.setType("image/*");
-		intent.putExtra("crop", "true");
-		intent.putExtra("aspectX", 1.5);
-		intent.putExtra("aspectY", 1);
-		intent.putExtra("outputX", 300);
-		intent.putExtra("outputY", 300);
-		intent.putExtra("return-data", true);
-
-		startActivityForResult(intent, 0);
+		int width = mBackgroundImageView.getWidth();
+		int height = mBackgroundImageView.getHeight();
+		width = (width == 0 ? DEFAULT_WIDTH : width);
+		height = (height == 0 ? DEFAULT_HEIGHT : height);
+		float aspect = width / (float)height;
+//		Log.e(TAG, "width = " + width + " ,height = " + height + " ,aspect = " + aspect);
+		
+		Intent cropIntent = CropImage.getCropIntent(width, height, aspect);
+		startActivityForResult(cropIntent, PHOTO_REQUEST_CUT);
 	}
 	
 	@OnClick(R.id.btn_edit)
@@ -114,10 +127,10 @@ public class Parking extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (null != data) {
-			Bitmap cameraBitmap = (Bitmap) data.getExtras().get("data");
-			if (null != cameraBitmap) {
-				mBackgroundImageView.setImageBitmap(cameraBitmap);
+		if (PHOTO_REQUEST_CUT == requestCode) {
+			if(null != CropImage.getImageUri()){
+				String url = CropImage.getImageUri().toString();
+		        mImageLoader.displayImage(url, mBackgroundImageView, mOptions);
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);
