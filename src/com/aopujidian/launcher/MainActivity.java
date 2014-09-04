@@ -88,7 +88,12 @@ public class MainActivity extends Activity {
     /** 启动android桌面 */
     private void goLauncher(){
     	Intent launcherIntent = LauncherIntents.getLauncherIntent();
-    	startActivityWithIntent(launcherIntent);
+    	try {
+			startActivity(launcherIntent);
+		} catch (ActivityNotFoundException e) {
+			Intent launcherIntent3 = LauncherIntents.getLauncherIntent3();
+			startActivityWithIntent(launcherIntent3);
+		}
     }
     
     /** 启动设置 */
@@ -122,6 +127,7 @@ public class MainActivity extends Activity {
     }
     
     private void goCamera() {
+
     	Intent cameraIntent = LauncherIntents.getCameraIntent();
     	startActivityWithIntent(cameraIntent);
     }

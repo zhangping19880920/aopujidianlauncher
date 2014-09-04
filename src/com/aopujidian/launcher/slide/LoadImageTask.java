@@ -47,7 +47,7 @@ public class LoadImageTask extends AsyncTask<Void, Integer, Void> {
 	@Override
 	protected Void doInBackground(Void... params) {
 		// /data/data/hk.com.dycx.lebao.systemservice/files/theme
-		File file = new File(mExternalStoragePath + "/slide");
+		File file = new File(mExternalStoragePath + "/DCIM/Camera");
 		recursionLoad(file);
 		return null;
 	}

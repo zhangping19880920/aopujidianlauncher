@@ -58,8 +58,8 @@
     <dimen name="parking_text_size">55sp</dimen>
     <dimen name="table_cell_margin">5dip</dimen>
     <dimen name="parking_edit_size">48sp</dimen>
-    <dimen name="table_cell_width">220dip</dimen>
-    <dimen name="table_cell_height">220dip</dimen>
+    <dimen name="table_cell_width">260dip</dimen>
+    <dimen name="table_cell_height">260dip</dimen>
     <dimen name="action_bar_item_witdh">144dip</dimen>
     <dimen name="action_bar_item_height">52dip</dimen>
     <dimen name="table_cell_image_text_size">21sp</dimen>
