@@ -10,7 +10,7 @@
     />
     <RelativeLayout 
         style="@style/action_bar_background"
-        android:gravity="clip_vertical"
+        android:gravity="center_vertical"
         >
 	    <ImageButton
 	        android:id="@+id/btn_exit"
@@ -21,10 +21,13 @@
         
 	    <Spinner android:id="@+id/time_spinner"
 	        style="@style/wrap_content"
+	        android:paddingTop="0dip"
+	        android:paddingBottom="0dip"
 	        android:layout_alignParentRight="true"
 	        android:layout_marginRight="@dimen/button_margin_left_right"
 	        android:drawSelectorOnTop="true"
 	        android:prompt="@string/set_time"
+	        android:gravity="center"
 	        android:background="@drawable/button_background_normal"
 	    />
     </RelativeLayout>
