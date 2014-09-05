@@ -41,6 +41,11 @@
 	    <item name="android:textSize">@dimen/table_cell_image_text_size</item>
 	</style>
 	
+	<style name="text_list_fragment_dialog_item">
+	    <item name="android:textColor">@drawable/list_fragment_dialog_text_selector</item>
+	    <item name="android:textSize">@dimen/list_fragment_dialog_text_size</item>
+	</style>
+	
 	<style name="action_bar_back" parent="wrap_content">
 	    <item name="android:background">@drawable/back_normal</item>
 	    <item name="android:src">@drawable/back_selector</item>

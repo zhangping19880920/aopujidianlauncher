@@ -1,5 +1,8 @@
 package com.aopujidian.launcher;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
@@ -18,6 +21,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.aopujidian.launcher.dialog.DialogAction;
+import com.aopujidian.launcher.dialog.DialogAction.OnClickListener;
+import com.aopujidian.launcher.dialog.ListFragmentDialog;
 import com.aopujidian.launcher.slide.BaseActivity;
 import com.aopujidian.launcher.utils.CropImage;
 import com.aopujidian.launcher.utils.ExternalStorageUtil;
@@ -102,6 +108,34 @@ public class Parking extends BaseActivity {
 		edit.putBoolean(PrefsConfig.PREFS_KEY_PARKING_BACKGROUND, false);
 		edit.commit();
 		mBackgroundImageView.setImageResource(R.drawable.parking_background);
+		
+		List<DialogAction> actions = new ArrayList<DialogAction>();
+		DialogAction action1 = new DialogAction("one", new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Log.e(TAG, "onClick: action1");
+			}
+		});
+		
+		DialogAction action2 = new DialogAction("two", new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Log.e(TAG, "onClick: action2");
+			}
+		});
+		
+		DialogAction action3 = new DialogAction("three", new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Log.e(TAG, "onClick: action3");
+			}
+		});
+		
+		actions.add(action1);
+		actions.add(action2);
+		actions.add(action3);
+		ListFragmentDialog fragmentDialog = new ListFragmentDialog(actions);
+		fragmentDialog.showDialog(getFragmentManager());
 	}
 	
 	@OnClick(R.id.btn_set_background)
