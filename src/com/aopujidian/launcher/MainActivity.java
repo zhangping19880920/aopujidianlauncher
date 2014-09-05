@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ScreenSizeHelper.getScreenSize(this);
     }
 
 
@@ -36,7 +37,8 @@ public class MainActivity extends Activity {
 		case R.id.ib_top_first:
 			int width = DipUtil.px2dip(getApplicationContext(), view.getWidth());
 			int height = DipUtil.px2dip(getApplicationContext(), view.getHeight());
-			Log.e(TAG, "view:width = " + width + " ,height = " + height);
+			Log.e(TAG, "dip view:width = " + width + " ,height = " + height);
+			Log.e(TAG, "px view:width = " + view.getWidth() + " ,height = " + view.getHeight());
 			goMiracast();
 			break;
 		case R.id.ib_top_second:

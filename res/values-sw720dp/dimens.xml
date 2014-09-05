@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="grid_view_padding">4dip</dimen>
+    <dimen name="time_spinner_width">100dip</dimen>
+    <dimen name="parking_text_size">55sp</dimen>
+    <dimen name="table_cell_margin">5dip</dimen>
+    <dimen name="parking_edit_size">48sp</dimen>
+    <dimen name="table_cell_width">190dip</dimen>
+    <dimen name="table_cell_height">190dip</dimen>
+    <dimen name="action_bar_item_witdh">144dip</dimen>
+    <dimen name="action_bar_item_height">52dip</dimen>
+    <dimen name="table_cell_image_text_size">15sp</dimen>
+    <dimen name="button_margin_left_right">10dip</dimen>
+    <dimen name="button_margin_top">10dip</dimen>
+</resources>
