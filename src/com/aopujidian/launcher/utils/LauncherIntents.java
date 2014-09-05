@@ -36,7 +36,9 @@ public class LauncherIntents {
 	
 	public static Intent getMiracastIntent() {
 		Intent intent = new Intent();
-		intent.setClassName("com.android.settings", "com.android.settings.DisplaySettings");
+//		intent.setClassName("com.android.settings", "com.android.settings.DisplaySettings");
+		intent.setAction("android.settings.WIFI_DISPLAY_SETTINGS");
+		intent.addCategory(Intent.CATEGORY_DEFAULT);
 		return intent;
 	}
 	
