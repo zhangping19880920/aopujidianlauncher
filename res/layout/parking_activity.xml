@@ -19,31 +19,23 @@
 	    <ImageButton
 	        android:id="@+id/btn_exit"
 	        style="@style/action_bar_back"
-	        android:layout_alignTop="@+id/btn_set_background"
-	        android:layout_alignBottom="@+id/btn_set_background"
+	        android:layout_alignTop="@+id/more"
+	        android:layout_alignBottom="@+id/more"
 	        android:layout_alignParentLeft="true"/>
 	
 	    <Button
-	        android:id="@+id/btn_set_background"
+	        android:id="@+id/more"
 	        style="@style/text_button_item"
 	        android:layout_marginRight="@dimen/button_margin_left_right"
 	        android:layout_alignParentRight="true"
 	        android:background="@drawable/button_background_normal"
 	        android:text="@string/set_background" />
-	    
-	    <Button
-	        android:id="@+id/btn_set_default_background"
-	        style="@style/text_button_item"
-	        android:layout_marginRight="@dimen/button_margin_left_right"
-	        android:layout_toLeftOf="@+id/btn_set_background"
-	        android:background="@drawable/button_background_normal"
-	        android:text="@string/set_default_background" />
 	
 	    <Button
 	        android:id="@+id/btn_edit"
 	        style="@style/text_button_item"
 	        android:layout_marginRight="@dimen/button_margin_left_right"
-	        android:layout_toLeftOf="@+id/btn_set_default_background"
+	        android:layout_toLeftOf="@+id/more"
 	        android:background="@drawable/button_background_pressed"
 	        android:text="@string/edit" />
     </RelativeLayout>

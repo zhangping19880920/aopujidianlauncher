@@ -21,9 +21,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.aopujidian.launcher.dialog.ColorPickerDialog.OnColorChangedListener;
 import com.aopujidian.launcher.dialog.DialogAction;
 import com.aopujidian.launcher.dialog.DialogAction.OnClickListener;
 import com.aopujidian.launcher.dialog.ListFragmentDialog;
+import com.aopujidian.launcher.dialog.ColorPickerDialog;
+import com.aopujidian.launcher.dialog.SeekBarDialog;
+import com.aopujidian.launcher.dialog.SeekBarDialog.OnSeekBarProgressChangeListener;
 import com.aopujidian.launcher.slide.BaseActivity;
 import com.aopujidian.launcher.utils.CropImage;
 import com.aopujidian.launcher.utils.ExternalStorageUtil;
@@ -102,44 +106,64 @@ public class Parking extends BaseActivity {
 		finish();
 	}
 
-	@OnClick(R.id.btn_set_default_background)
-	public void setDefaultBackground(View view){
-		Editor edit = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).edit();
-		edit.putBoolean(PrefsConfig.PREFS_KEY_PARKING_BACKGROUND, false);
-		edit.commit();
-		mBackgroundImageView.setImageResource(R.drawable.parking_background);
-		
+	@OnClick(R.id.more)
+	public void more(View view){
 		List<DialogAction> actions = new ArrayList<DialogAction>();
-		DialogAction action1 = new DialogAction("one", new OnClickListener() {
+		DialogAction setBackground = new DialogAction(getString(R.string.set_background), new OnClickListener() {
 			@Override
-			public void onClick(View view) {
-				Log.e(TAG, "onClick: action1");
+			public void onClick(View view) {	//set background
+				setBackground();
 			}
 		});
 		
-		DialogAction action2 = new DialogAction("two", new OnClickListener() {
+		DialogAction setDefaultBackground = new DialogAction(getString(R.string.set_default_background), new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Log.e(TAG, "onClick: action2");
+				setDefaultBackground();
 			}
 		});
 		
-		DialogAction action3 = new DialogAction("three", new OnClickListener() {
+		DialogAction setSize = new DialogAction(getString(R.string.set_text_size), new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Log.e(TAG, "onClick: action3");
+				new SeekBarDialog(Parking.this, new OnSeekBarProgressChangeListener() {
+					@Override
+					public void onSeekBarProgressChange(int progress) {
+						Log.e(TAG, "onSeekBarProgressChange: " + progress);
+					}
+				}, 0).show();
 			}
 		});
 		
-		actions.add(action1);
-		actions.add(action2);
-		actions.add(action3);
+		DialogAction setColor = new DialogAction(getString(R.string.set_text_color), new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				int currentTextColor = mTextView.getCurrentTextColor();
+				new ColorPickerDialog(Parking.this, new OnColorChangedListener() {
+					@Override
+					public void colorChanged(int color) {
+						mTextView.setTextColor(color);
+					}
+				}, currentTextColor).show();
+			}
+		});
+		
+		actions.add(setBackground);
+		actions.add(setDefaultBackground);
+		actions.add(setSize);
+		actions.add(setColor);
 		ListFragmentDialog fragmentDialog = new ListFragmentDialog(actions);
 		fragmentDialog.showDialog(getFragmentManager());
 	}
 	
-	@OnClick(R.id.btn_set_background)
-	public void setBackground(View view) {
+	protected void setDefaultBackground() {
+		Editor edit = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).edit();
+		edit.putBoolean(PrefsConfig.PREFS_KEY_PARKING_BACKGROUND, false);
+		edit.commit();
+		mBackgroundImageView.setImageResource(R.drawable.parking_background);
+	}
+
+	public void setBackground() {
 		boolean isMount = ExternalStorageUtil.isMount(getApplicationContext());
 		if (!isMount) {
 			return;
