@@ -57,9 +57,17 @@ public class LauncherIntents {
 		return intent;
 	}
 	
-	public static Intent getCameraIntent() {
+	public static Intent getCameraIntentRK() {
 		Intent intent = new Intent();
 		intent.setClassName("com.android.gallery3d", "com.android.camera.CameraLauncher");
+		intent.addCategory(Intent.CATEGORY_DEFAULT);
+		intent.addCategory(Intent.CATEGORY_LAUNCHER);
+		return intent;
+	}
+	
+	public static Intent getCameraIntent() {
+		Intent intent = new Intent();
+		intent.setClassName("com.android.camera", "com.android.camera.Camera");
 		intent.addCategory(Intent.CATEGORY_DEFAULT);
 		intent.addCategory(Intent.CATEGORY_LAUNCHER);
 		return intent;

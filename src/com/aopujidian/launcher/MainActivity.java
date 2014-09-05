@@ -4,7 +4,9 @@ package com.aopujidian.launcher;
 import java.io.File;
 
 import com.aopujidian.launcher.slide.ImageGridActivity;
+import com.aopujidian.launcher.utils.DipUtil;
 import com.aopujidian.launcher.utils.LauncherIntents;
+import com.aopujidian.launcher.utils.ScreenSizeHelper;
 import com.aopujidian.launcher.utils.ShowGallery;
 
 import android.app.Activity;
@@ -32,6 +34,9 @@ public class MainActivity extends Activity {
     public void onClick (View view) {
     	switch (view.getId()) {
 		case R.id.ib_top_first:
+			int width = DipUtil.px2dip(getApplicationContext(), view.getWidth());
+			int height = DipUtil.px2dip(getApplicationContext(), view.getHeight());
+			Log.e(TAG, "view:width = " + width + " ,height = " + height);
 			goMiracast();
 			break;
 		case R.id.ib_top_second:
@@ -127,9 +132,13 @@ public class MainActivity extends Activity {
     }
     
     private void goCamera() {
-
-    	Intent cameraIntent = LauncherIntents.getCameraIntent();
-    	startActivityWithIntent(cameraIntent);
+    	Intent cameraIntentRK = LauncherIntents.getCameraIntentRK();
+    	try {
+			startActivity(cameraIntentRK);
+		} catch (ActivityNotFoundException e) {
+			Intent cameraIntent = LauncherIntents.getCameraIntent();
+			startActivityWithIntent(cameraIntent);
+		}
     }
     
     @Override
