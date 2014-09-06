@@ -99,6 +99,17 @@ public class Parking extends BaseActivity {
 		if (isSetBackground) {
 			reallySetBackground();
 		}
+		
+		int textSize = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).getInt(PrefsConfig.PREFS_KEY_PARKING_TEXT_SIZE, 0);
+		if (0 != textSize) {
+			mTextView.setTextSize(textSize);
+		}
+		
+		int textColor = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).getInt(PrefsConfig.PREFS_KEY_PARKING_TEXT_COLOR, 0);
+		if (0 != textColor) {
+			mTextView.setTextColor(textColor);
+		}
+		
 	}
 
 	@OnClick(R.id.btn_exit)
@@ -130,8 +141,14 @@ public class Parking extends BaseActivity {
 					@Override
 					public void onSeekBarProgressChange(int progress) {
 						Log.e(TAG, "onSeekBarProgressChange: " + progress);
+						mTextView.setTextSize(progress);
+						//TODO 保存起来
+						
+						Editor edit = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).edit();
+						edit.putInt(PrefsConfig.PREFS_KEY_PARKING_TEXT_SIZE, progress);
+						edit.commit();
 					}
-				}, 0).show();
+				}, (int)mTextView.getTextSize()).show();
 			}
 		});
 		
@@ -143,6 +160,11 @@ public class Parking extends BaseActivity {
 					@Override
 					public void colorChanged(int color) {
 						mTextView.setTextColor(color);
+						//TODO 保存起来
+						
+						Editor edit = getSharedPreferences(PrefsConfig.PREFS_NAME, Context.MODE_PRIVATE).edit();
+						edit.putInt(PrefsConfig.PREFS_KEY_PARKING_TEXT_COLOR, color);
+						edit.commit();
 					}
 				}, currentTextColor).show();
 			}
