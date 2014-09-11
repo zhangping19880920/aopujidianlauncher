@@ -1,14 +1,14 @@
 <resources>
 
-    <string name="app_name">系统桌面</string>
+    <string name="app_name">System Launcher</string>
 	<string name="top_first">Android Miracast</string>
 	<string name="top_second">Apple AirPlay</string>
 	<string name="top_third">电子屏幕</string>
-	<string name="top_fourth">android桌面</string>
+	<string name="top_fourth">android Launcher</string>
 	<string name="buttom_first">Trip</string>
 	<string name="buttom_second">提示停车</string>
 	<string name="buttom_third">视频黑匣子记录</string>
-	<string name="buttom_fourth">设置</string>
+	<string name="buttom_fourth">Settings</string>
 	<string name="do_not_start_activity">无法启动</string>
 	<string name="exit">退出</string>
 	<string name="set_background">设置背景</string>
