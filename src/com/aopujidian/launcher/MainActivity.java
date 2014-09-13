@@ -2,6 +2,8 @@ package com.aopujidian.launcher;
 
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.aopujidian.launcher.slide.ImageGridActivity;
 import com.aopujidian.launcher.utils.DipUtil;
@@ -35,10 +37,7 @@ public class MainActivity extends Activity {
     public void onClick (View view) {
     	switch (view.getId()) {
 		case R.id.ib_top_first:
-			int width = DipUtil.px2dip(getApplicationContext(), view.getWidth());
-			int height = DipUtil.px2dip(getApplicationContext(), view.getHeight());
-			Log.e(TAG, "dip view:width = " + width + " ,height = " + height);
-			Log.e(TAG, "px view:width = " + view.getWidth() + " ,height = " + view.getHeight());
+			ScreenSizeHelper.getScreenDIP(this, view);
 			goMiracast();
 			break;
 		case R.id.ib_top_second:
@@ -47,7 +46,6 @@ public class MainActivity extends Activity {
 		case R.id.ib_top_third:
 			// 进入电子屏幕
 			goActivity(ImageGridActivity.class);
-//			goGallery();
 			break;
 		case R.id.ib_top_fourth:
 			// 进入android桌面
@@ -118,9 +116,43 @@ public class MainActivity extends Activity {
 		}
     }
     
+    private void startActivityWithIntents(List<Intent> intents) {
+    	if (null == intents || 0 == intents.size()) {
+    		String msg = getString(R.string.do_not_start_activity);
+    		Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    		return;
+		}
+    	
+    	for (int i = 0; i < intents.size(); i++) {
+    		Intent intent = intents.get(i);
+    		if (null == intent) {
+    			String msg = getString(R.string.do_not_start_activity);
+    			Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    			return;
+			}
+    		
+    		try {
+    			startActivity(intent);
+    			break;
+    		} catch (ActivityNotFoundException e) {
+    			if (i == intents.size() - 1) {
+    				String msg = getString(R.string.do_not_start_activity);
+    				Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+				} else if (i < intents.size() - 1){
+					Log.e(TAG, "startActivity continue");
+					continue;
+				}
+    		}
+		}
+    }
+    
     private void goMiracast() {
-    	Intent miracastIntent = LauncherIntents.getMiracastIntent();
-    	startActivityWithIntent(miracastIntent);
+    	Intent settingMiracastIntent = LauncherIntents.getSettingsMiracastIntent();
+    	Intent appMiracastIntent = LauncherIntents.getAppMiracastIntent();
+    	List<Intent> intents = new ArrayList<Intent>();
+    	intents.add(appMiracastIntent);
+    	intents.add(settingMiracastIntent);
+    	startActivityWithIntents(intents);
     }
     
     private void goAirPlay() {

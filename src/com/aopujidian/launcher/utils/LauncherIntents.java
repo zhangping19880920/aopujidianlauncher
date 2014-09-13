@@ -34,10 +34,16 @@ public class LauncherIntents {
 		return settingIntent;
 	}
 	
-	public static Intent getMiracastIntent() {
+	public static Intent getSettingsMiracastIntent() {
 		Intent intent = new Intent();
-//		intent.setClassName("com.android.settings", "com.android.settings.DisplaySettings");
 		intent.setAction("android.settings.WIFI_DISPLAY_SETTINGS");
+		intent.addCategory(Intent.CATEGORY_DEFAULT);
+		return intent;
+	}
+	
+	public static Intent getAppMiracastIntent() {
+		Intent intent = new Intent();
+		intent.setAction("android.settings.WIFI_DISPLAY_SETTINGSs");
 		intent.addCategory(Intent.CATEGORY_DEFAULT);
 		return intent;
 	}
