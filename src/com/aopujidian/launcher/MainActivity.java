@@ -5,8 +5,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aopujidian.launcher.floatwindow.FloatWindowService;
+import com.aopujidian.launcher.floatwindow.ScreenUtils;
 import com.aopujidian.launcher.slide.ImageGridActivity;
-import com.aopujidian.launcher.utils.DipUtil;
 import com.aopujidian.launcher.utils.LauncherIntents;
 import com.aopujidian.launcher.utils.ScreenSizeHelper;
 import com.aopujidian.launcher.utils.ShowGallery;
@@ -14,10 +15,9 @@ import com.aopujidian.launcher.utils.ShowGallery;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -31,10 +31,17 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ScreenSizeHelper.getScreenSize(this);
+        
+        ScreenUtils.initScreen(this);
+        Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
+		startService(intent);
     }
 
 
     public void onClick (View view) {
+    	Rect rect= new Rect();  
+		getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+		Log.e(TAG, "rect: " + rect);
     	switch (view.getId()) {
 		case R.id.ib_top_first:
 			ScreenSizeHelper.getScreenDIP(this, view);

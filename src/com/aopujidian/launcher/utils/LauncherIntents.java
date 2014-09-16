@@ -43,8 +43,7 @@ public class LauncherIntents {
 	
 	public static Intent getAppMiracastIntent() {
 		Intent intent = new Intent();
-		intent.setAction("android.settings.WIFI_DISPLAY_SETTINGSs");
-		intent.addCategory(Intent.CATEGORY_DEFAULT);
+		intent.setClassName("com.actions.wifidisplay", "com.actions.wifidisplay.sink.WFDSinkActivity");
 		return intent;
 	}
 	
