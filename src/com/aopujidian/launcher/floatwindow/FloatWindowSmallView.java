@@ -3,6 +3,7 @@ package com.aopujidian.launcher.floatwindow;
 import com.aopujidian.launcher.R;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.Display;
@@ -99,7 +100,11 @@ public class FloatWindowSmallView extends LinearLayout {
 	 * 打开大悬浮窗，同时关闭小悬浮窗
 	 */
 	private void openBigWindow() {
-		MyWindowManager.createBigWindow(getContext());
+//		MyWindowManager.createBigWindow(getContext());
+		Intent floatActivity = new Intent(getContext(), FloatActivity.class);
+		floatActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		floatActivity.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+		getContext().startActivity(floatActivity);
 		MyWindowManager.removeSmallWindow(getContext());
 	}
 }

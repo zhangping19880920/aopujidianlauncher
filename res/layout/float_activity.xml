@@ -1,7 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:padding="80dip">
     
     <ImageView
         android:id="@+id/iv_background"
@@ -29,7 +31,7 @@
 	        android:layout_marginRight="@dimen/button_margin_left_right"
 	        android:layout_alignParentRight="true"
 	        android:background="@drawable/button_background_normal"
-	        android:text="@string/more" />
+	        android:text="@string/set_background" />
 	
 	    <Button
 	        android:id="@+id/btn_edit"

@@ -63,6 +63,6 @@
     <dimen name="list_fragment_dialog_text_size">25sp</dimen>
     <dimen name="button_margin_left_right">10dip</dimen>
     <dimen name="button_margin_top">10dip</dimen>
-    <dimen name="list_fragment_dialog_width">200dip</dimen>
+    <dimen name="list_fragment_dialog_width">260dip</dimen>
     <dimen name="seek_bar_dialog_width">300dip</dimen>
 </resources>

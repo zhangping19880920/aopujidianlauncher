@@ -7,6 +7,8 @@ public class PrefsConfig {
 	
 	public static final String PREFS_KEY_PARKING = "parking_text";
 	
+	public static final String PREFS_KEY_FLOAT_ACTIVITY = "float_activity_text";
+	
 	public static final String PREFS_KEY_PARKING_TEXT_SIZE = "parking_text_size";
 	
 	public static final String PREFS_KEY_PARKING_TEXT_COLOR = "parking_text_color";
