@@ -47,30 +47,30 @@ public class MainActivity extends Activity {
 			ScreenSizeHelper.getScreenDIP(this, view);
 			goMiracast();
 			break;
-		case R.id.ib_top_second:
-			goAirPlay();
-			break;
+//		case R.id.ib_top_second:
+//			goAirPlay();
+//			break;
 		case R.id.ib_top_third:
 			// 进入电子屏幕
 			goActivity(ImageGridActivity.class);
 			break;
-		case R.id.ib_top_fourth:
-			// 进入android桌面
-			goLauncher();
-			break;
-		case R.id.ib_bottom_first:
-			goTrip();
-			break;
-		case R.id.ib_bottom_second:
-			// 提示停车
-			goActivity(Parking.class);
-			break;
+//		case R.id.ib_top_fourth:
+//			// 进入android桌面
+//			goLauncher();
+//			break;
+//		case R.id.ib_bottom_first:
+//			goTrip();
+//			break;
+//		case R.id.ib_bottom_second:
+//			// 提示停车
+//			goActivity(Parking.class);
+//			break;
 		case R.id.ib_bottom_third:
 			goCamera();
 			break;
-		case R.id.ib_bottom_fourth:
-			goSettings();
-			break;
+//		case R.id.ib_bottom_fourth:
+//			goSettings();
+//			break;
 		}
     }
     

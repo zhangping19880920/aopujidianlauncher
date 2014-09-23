@@ -38,23 +38,6 @@
 		            />
 	        </RelativeLayout>
 	        
-	        <!-- 第一二单元格 -->
-	        <RelativeLayout 
-				style="@style/table_cell"
-				android:orientation="vertical"
-				android:gravity="center"
-	            >
-		        <ImageButton 
-		            android:id="@+id/ib_top_second"
-		            style="@style/table_cell_image_button"
-		            android:background="@drawable/icon_2"
-		            />
-		        <TextView 
-		            android:id="@+id/tv_top_second"
-		            style="@style/table_cell_image_text_view"
-		            android:text="@string/top_second"
-		            />
-	        </RelativeLayout>
 	        
    	        <!-- 第一三单元格 -->
 	        <RelativeLayout 
@@ -74,69 +57,7 @@
 		            />
 	        </RelativeLayout>
 	        
-	        <!-- 第一四单元格 -->
-	        <RelativeLayout 
-				style="@style/table_cell"       
-				android:orientation="vertical"
-				android:gravity="center"
-	            >
-		        <ImageButton 
-		            android:id="@+id/ib_top_fourth"
-		            style="@style/table_cell_image_button"
-		            android:background="@drawable/icon_4"
-		            />
-		        <TextView 
-		            android:id="@+id/tv_top_fourth"
-		            style="@style/table_cell_image_text_view"
-		            android:text="@string/top_fourth"
-		            />
-	        </RelativeLayout>
-        </LinearLayout>
-        
-        <!-- 第二行 -->
-        <LinearLayout 
-            style="@style/wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            >
-            
-            <!-- 第二一单元格 -->
-	        <RelativeLayout 
-				style="@style/table_cell"
-				android:orientation="vertical"
-				android:gravity="center"
-	            >
-		        <ImageButton 
-		            android:id="@+id/ib_bottom_first"
-		            style="@style/table_cell_image_button"
-		            android:background="@drawable/icon_5"
-		            />
-		        <TextView 
-		            android:id="@+id/tv_bottom_first"
-		            style="@style/table_cell_image_text_view"
-		            android:text="@string/buttom_first"
-		            />
-	        </RelativeLayout>
-	        
-	        <!-- 第二二单元格 -->
-	        <RelativeLayout 
-				style="@style/table_cell"       
-				android:orientation="vertical"
-				android:gravity="center"
-	            >
-		        <ImageButton 
-		            android:id="@+id/ib_bottom_second"
-		            style="@style/table_cell_image_button"
-		            android:background="@drawable/icon_6"
-		            />
-		        <TextView 
-		            android:id="@+id/tv_bottom_second"
-		            style="@style/table_cell_image_text_view"
-		            android:text="@string/buttom_second"
-		            />
-	        </RelativeLayout>
-	        
-   	        <!-- 第二三单元格 -->
+	        <!-- 第二三单元格 -->
 	        <RelativeLayout 
 				style="@style/table_cell"       
 				android:orientation="vertical"
@@ -153,25 +74,8 @@
 		            android:text="@string/buttom_third"
 		            />
 	        </RelativeLayout>
-	        
-	        <!-- 第二四单元格 -->
-	        <RelativeLayout 
-				style="@style/table_cell"       
-				android:orientation="vertical"
-				android:gravity="center"
-	            >
-		        <ImageButton 
-		            android:id="@+id/ib_bottom_fourth"
-		            style="@style/table_cell_image_button"
-		            android:background="@drawable/icon_8"
-		            />
-		        <TextView 
-		            android:id="@+id/tv_bottom_fourth"
-		            style="@style/table_cell_image_text_view"
-		            android:text="@string/buttom_fourth"
-		            />
-	        </RelativeLayout>
         </LinearLayout>
+        
     </LinearLayout>
 
 </RelativeLayout>
