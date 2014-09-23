@@ -62,6 +62,7 @@ public class MyApplication extends Application {
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
 				.memoryCacheExtraOptions(maxWidth, maxHeight) // max width, max height，即保存的每个缓存文件的最大长宽
 				.threadPriority(Thread.NORM_PRIORITY - 2)
+				.threadPoolSize(3)
 				.denyCacheImageMultipleSizesInMemory()
 				.diskCacheExtraOptions(maxWidth, maxHeight, new BitmapProcessor() {
 					
@@ -75,7 +76,7 @@ public class MyApplication extends Application {
 				})
 //				.diskCache(new UnlimitedDiscCache(cacheDir))//自定义缓存路径 
 				.diskCacheFileNameGenerator(new Md5FileNameGenerator())
-				.diskCacheSize(50 * MB) // 50 Mb
+				.diskCacheSize(40 * MB) // 50 Mb
 				.tasksProcessingOrder(QueueProcessingType.LIFO)
 				.memoryCache(new UsingFreqLimitedMemoryCache(5 * MB))
 				.memoryCacheSize(5 * MB)
