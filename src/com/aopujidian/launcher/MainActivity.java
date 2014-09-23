@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
         
         ScreenUtils.initScreen(this);
         Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
-		startService(intent);
+//		startService(intent);
     }
 
 

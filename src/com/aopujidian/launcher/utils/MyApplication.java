@@ -77,8 +77,8 @@ public class MyApplication extends Application {
 				.diskCacheFileNameGenerator(new Md5FileNameGenerator())
 				.diskCacheSize(50 * MB) // 50 Mb
 				.tasksProcessingOrder(QueueProcessingType.LIFO)
-				.memoryCache(new UsingFreqLimitedMemoryCache(10 * MB))
-				.memoryCacheSize(10 * MB)
+				.memoryCache(new UsingFreqLimitedMemoryCache(5 * MB))
+				.memoryCacheSize(5 * MB)
 				.writeDebugLogs() // Remove for release app
 				.build();
 		ImageLoader.getInstance().init(config);
